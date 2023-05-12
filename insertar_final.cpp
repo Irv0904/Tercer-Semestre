@@ -14,13 +14,13 @@ nodo *creaNodo();
 void iteractivo(nodo *i);
 nodo *comienzo();
 nodo *liberiaMemoria(nodo *i);
-nodo *insertar_inicio(nodo *i);
+nodo *insertar_final(nodo *i);
 int main(){
 	int des;
 	nodo *i=NULL;
   	i= comienzo();
 	iteractivo (i);
-	i=insertar_inicio(i);
+	i=insertar_final(i);
 	iteractivo (i);
 	i=liberiaMemoria(i);
 
@@ -107,18 +107,21 @@ nodo *comienzo(){
 	return i;	
 }
 
-nodo *insertar_inicio(nodo *i) {
-	nodo *v;
-    int ver,lec;
-    v=creaNodo();
-    printf("Introduzca un dato: ");
-    ver=scanf("%d",&lec);
-    fflush(stdin);
-    if(ver==1) {
-        v->liga=i;
-        v->num=lec;
-        i= v;
-        }
-    return i;
+nodo *insertar_final(nodo *i) {
+	nodo *v,*l;
+	int lec,ver;
+	l=i;
+	v=creaNodo();
+	printf("Ingrese: "); 
+	ver=scanf("%d",&lec);
+	if(ver==1){
+		while(l->liga!=NULL){
+			l=l->liga;
+		}
+		v->num=lec;
+		v->liga=NULL;
+		l->liga=v;
+	}
+	printf("\n\t*****Ingresando el nuevo dato al final...*****\n")
+	;return i;
 }
-

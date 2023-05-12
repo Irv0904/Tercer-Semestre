@@ -97,7 +97,7 @@ nodo *comienzo(){
 			break;
 		}
 		}while(j ==1);
-		printf("\n*****creando Listas enlazada...*****\n");
+		printf("\n\t*****creando Listas enlazada...*****\n");
 	}
 	else{
 		free(i);
@@ -110,7 +110,7 @@ nodo *comienzo(){
 nodo *eliminar_ultimo(nodo *i) {
 	nodo *v,*l;
 	v=i;
-	printf("*****...Elminando ultimo nodo...*****\n");
+	printf("\n\t*****Elminando ultimo nodo...*****\n");
     if(i->liga==NULL) 
         i=NULL;
     else{
