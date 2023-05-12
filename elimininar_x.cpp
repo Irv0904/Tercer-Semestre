@@ -14,13 +14,13 @@ nodo *creaNodo();
 void iteractivo(nodo *i);
 nodo *comienzo();
 nodo *liberiaMemoria(nodo *i);
-nodo *insertar_inicio(nodo *i);
+nodo *elmininar_x(nodo *i);
 int main(){
-	//int des;
+	int des;
 	nodo *i=NULL;
   	i= comienzo();
 	iteractivo (i);
-	i=insertar_inicio(i);
+	i=elmininar_x(i);
 	iteractivo (i);
 	i=liberiaMemoria(i);
 
@@ -97,7 +97,7 @@ nodo *comienzo(){
 			break;
 		}
 		}while(j ==1);
-		printf("\n*****creando Listas enlazada...*****\n");
+		printf("\n\t*****creando Listas enlazada...*****\n");
 	}
 	else{
 		free(i);
@@ -107,19 +107,37 @@ nodo *comienzo(){
 	return i;	
 }
 
-nodo *insertar_inicio(nodo *i) {
-	nodo *v;
-    int ver,lec;
-    v=creaNodo();
-    printf("Introduzca un dato: ");
-    ver=scanf("%d",&lec);
-    fflush(stdin);
-    if(ver==1) {
-        v->liga=i;
-        v->num=lec;
-        i= v;
-        }
-    printf("\n\t*****Ingresando nuevo dato al inicio...*****\n");
-    return i;
+nodo *elmininar_x(nodo *i) {
+	nodo *v,*l;	
+	int ver,x,BAND =1;
+	v=i;
+	printf("Ingrese el dato que va a el:iminar ");
+	ver=scanf("%d",&x);
+	fflush(stdin);
+	if(ver==1){
+		while((v->num!=x)&&(BAND == 1))
+		{
+			if(v->liga!=NULL){
+				l=v;
+				v=v->liga;
+			}
+			else{
+				BAND=0;
+			}
+		}
+		if(BAND==0){
+			printf("\nEl dato %d no se encuentra para eliminar",x);
+		}
+		else{
+			if(i==v){
+				i=v->liga;
+			}
+			else{
+				l->liga=v->liga;
+			}
+		}
+		free(v);
+	}
+	return(i);
 }
 

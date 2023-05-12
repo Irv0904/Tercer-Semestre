@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<conio.h>
 
 struct cnodo{
 	int num;
@@ -14,14 +13,16 @@ nodo *creaNodo();
 void iteractivo(nodo *i);
 nodo *comienzo();
 nodo *liberiaMemoria(nodo *i);
-nodo *insertar_inicio(nodo *i);
+nodo *busqueda_desordenada(nodo *i);
 int main(){
-	//int des;
+	int des,x,ver;
 	nodo *i=NULL;
   	i= comienzo();
 	iteractivo (i);
-	i=insertar_inicio(i);
-	iteractivo (i);
+	printf("Ingrese el dato que va a buscar: ");
+	ver=scanf("%d",&x);
+	fflush(stdin);
+	i=busqueda_desordenada(i);
 	i=liberiaMemoria(i);
 
 }
@@ -97,7 +98,7 @@ nodo *comienzo(){
 			break;
 		}
 		}while(j ==1);
-		printf("\n*****creando Listas enlazada...*****\n");
+		printf("\n\t*****creando Listas enlazada...*****\n");
 	}
 	else{
 		free(i);
@@ -107,19 +108,15 @@ nodo *comienzo(){
 	return i;	
 }
 
-nodo *insertar_inicio(nodo *i) {
-	nodo *v;
-    int ver,lec;
-    v=creaNodo();
-    printf("Introduzca un dato: ");
-    ver=scanf("%d",&lec);
-    fflush(stdin);
-    if(ver==1) {
-        v->liga=i;
-        v->num=lec;
-        i= v;
-        }
-    printf("\n\t*****Ingresando nuevo dato al inicio...*****\n");
-    return i;
+nodo *busqueda_desordenada(nodo *i,int x) {
+
+	if(i->num==x)
+		printf("Se encuentra en la lista");
+	else {
+		busqueda_desordenada(i->liga,x);}
+			
+		if(i->num!=x)	
+		printf("No se encuentra");
+	return(i);
 }
 
