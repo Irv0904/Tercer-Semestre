@@ -1,3 +1,5 @@
+//LE FALTA,REVISAR
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -13,16 +15,16 @@ nodo *creaNodo();
 void iteractivo(nodo *i);
 nodo *comienzo();
 nodo *liberiaMemoria(nodo *i);
-nodo *busqueda_desordenada(nodo *i);
+nodo *eliminar_despues_x(nodo *i);
 int main(){
-	int des,x,ver;
+	int num;
 	nodo *i=NULL;
   	i= comienzo();
 	iteractivo (i);
-	printf("Ingrese el dato que va a buscar: ");
-	ver=scanf("%d",&x);
-	fflush(stdin);
-	i=busqueda_desordenada(i);
+	i=eliminar_despues_x(i);
+	iteractivo (i);
+	i=eliminar_despues_x(i);
+	iteractivo (i);
 	i=liberiaMemoria(i);
 
 }
@@ -78,7 +80,7 @@ nodo *comienzo(){
 	i = creaNodo();
 	printf("\nIngrese un digito: ");
 	j=scanf("%d",&num);
-	//fflush(stdin);
+	fflush(stdin);
 	if(j == 1){
 		i ->num = num;
 		i -> liga=NULL;	
@@ -108,15 +110,42 @@ nodo *comienzo(){
 	return i;	
 }
 
-nodo *busqueda_desordenada(nodo *i,int x) {
-
-	if(i->num==x)
-		printf("Se encuentra en la lista");
-	else {
-		busqueda_desordenada(i->liga,x);}
-			
-		if(i->num!=x)	
-		printf("No se encuentra");
-	return(i);
+nodo *eliminar_despues_x(nodo *i) {
+	nodo *v,*l,*t;
+	int band=1,x,j;
+	v=i;
+	printf("Ingrese el numero de referencia: ");
+	j=scanf("%d", &x);
+	if(j==1){
+		while((v->num!=x)&&(band=1))
+		{
+			if(v->liga!=NULL){
+				l=v;
+				v=v->liga;
+			}
+			else
+			{
+				band=0;
+			}
+		}
+		if(band==0){
+			printf("No existe numero despues...");
+		}
+		else
+		{					
+			t=v;
+			v=v->liga;
+			if(t->liga!=NULL)
+			{
+				t->liga=v->liga;
+				v->liga=t;
+			}
+			else
+			{
+				printf("\nNo hay numero despues de la referencia\n");
+			}
+		}
+		free (v);
+	}
+	return i;	
 }
-

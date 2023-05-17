@@ -1,3 +1,4 @@
+//PASO LA PRUEBA
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
@@ -11,17 +12,22 @@ typedef struct cnodo nodo;
 
 void *creaMemoria(int n);
 nodo *creaNodo();
-void iteractivo(nodo *i);
-nodo *comienzo();
+nodo *nodoFinal (nodo *i);
+void recursivo (nodo *i);
+//void iteractivo(nodo *i);
+//nodo *comienzo();
 nodo *liberiaMemoria(nodo *i);
-nodo *eliminar_ultimo(nodo *i);
+nodo *eliminar_primero(nodo *i);
 int main(){
-	int des;
-	nodo *i=NULL;
-  	i= comienzo();
-	iteractivo (i);
-	i=eliminar_ultimo(i);
-	iteractivo (i);
+	int num;
+	nodo *i=NULL;	
+	i=nodoFinal(i);
+	recursivo(i);
+  	//i= comienzo();
+	//iteractivo (i);
+	i=eliminar_primero(i);
+	recursivo(i);
+	//iteractivo (i);
 	i=liberiaMemoria(i);
 
 }
@@ -40,7 +46,7 @@ nodo *creaNodo(){
 	return(nodo *)creaMemoria(sizeof(nodo));
 } 
 
-void iteractivo(nodo *i){
+/*void iteractivo(nodo *i){
 	nodo *v;
 	if(i!=NULL){
 		printf("\n");
@@ -53,7 +59,23 @@ void iteractivo(nodo *i){
 	else
 		printf("\n*****Lista vacia...*****\n");
 	return;
+}*/
+
+void recursivo (nodo *i){
+	if(i != NULL){
+		printf("%5d->",i->num);
+		if(i->liga!=NULL){
+			recursivo (i->liga);
+		}
+		else{
+			printf("%s",i->liga);
+		}
+	}
+	else{
+		printf("\n*****Lista Vacia...*****\n");
+	}
 }
+
 
 nodo *liberiaMemoria(nodo *i){
 	nodo *v=NULL;
@@ -71,13 +93,13 @@ nodo *liberiaMemoria(nodo *i){
 	return(i);
 }
 
-nodo *comienzo(){
+/*nodo *comienzo(){
 	int num,j;
 	nodo *i, *v;
 	i = creaNodo();
 	printf("\nIngrese un digito: ");
 	j=scanf("%d",&num);
-	//fflush(stdin);
+	fflush(stdin);
 	if(j == 1){
 		i ->num = num;
 		i -> liga=NULL;	
@@ -105,21 +127,50 @@ nodo *comienzo(){
 	}
 	v=i	;
 	return i;	
+}*/
+
+nodo *nodoFinal (nodo *i){
+	int j,num;
+	nodo *l,*v;
+	i=creaNodo();
+	printf("\nIngrese un digito: ");
+	j=scanf("%d",&num);
+	fflush(stdin);
+	if(j==1){
+		i->num=num;
+		i->liga=NULL;
+		l=i;
+		do{
+			v=creaNodo();
+			printf("Ingrese digito:");
+			j=scanf("%d",&num);
+			fflush(stdin);
+			if(j==1){
+				v->num=num;
+				v->liga=NULL;
+				l->liga=v;
+				l=v;
+			}
+			else{
+				free(v);
+				break;
+			}
+		}while(j==1);
+		printf("\n*****creando Listas enlazada...*****\n\n");
+	
+	}
+	else{
+		free(i);
+		return(NULL);
+	}
+	return i;
 }
 
-nodo *eliminar_ultimo(nodo *i) {
+nodo *eliminar_primero(nodo *i) {
 	nodo *v,*l;
 	v=i;
-	printf("\n\t*****Elminando ultimo nodo...*****\n");
-    if(i->liga==NULL) 
-        i=NULL;
-    else{
-    	while(v->liga!=NULL){
-		l=v;
-		v=v->liga;
-		}
-		l->liga=NULL;
-	}
+	printf("\n\t*****Elminando el primer nodo...*****\n");
+	i=v->liga;
 	free(v);
 	return(i);
 

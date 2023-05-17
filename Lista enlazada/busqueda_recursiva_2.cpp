@@ -1,6 +1,6 @@
+//PASO LA PRUEBA
 #include<stdio.h>
 #include<stdlib.h>
-#include<conio.h>
 
 struct cnodo{
 	int num;
@@ -11,19 +11,23 @@ typedef struct cnodo nodo;
 
 void *creaMemoria(int n);
 nodo *creaNodo();
-void iteractivo(nodo *i);
-nodo *comienzo();
+//void iteractivo(nodo *i);
+void recursivo (nodo *i);
+nodo *nodoFinal (nodo *i);
+//nodo *comienzo();
 nodo *liberiaMemoria(nodo *i);
-nodo *elmininar_x(nodo *i);
+nodo *busqueda_recursiva(nodo *i,int num);
 int main(){
-	int des;
+	int num,j;
 	nodo *i=NULL;
-  	i= comienzo();
-	iteractivo (i);
-	i=elmininar_x(i);
-	iteractivo (i);
+  	//i= comienzo();
+	i=nodoFinal(i);
+	recursivo(i);
+	//iteractivo (i);
+	printf("\nbuscar: ");
+	scanf("%d",&num);
+	i=busqueda_recursiva(i,num);
 	i=liberiaMemoria(i);
-
 }
 
 void *creaMemoria(int n){
@@ -40,7 +44,22 @@ nodo *creaNodo(){
 	return(nodo *)creaMemoria(sizeof(nodo));
 } 
 
-void iteractivo(nodo *i){
+void recursivo (nodo *i){
+	if(i != NULL){
+		printf("%5d->",i->num);
+		if(i->liga!=NULL){
+			recursivo (i->liga);
+		}
+		else{
+			printf("%s",i->liga);
+		}
+	}
+	else{
+		printf("\n*****Lista Vacia...*****\n");
+	}
+}
+
+/*void iteractivo(nodo *i){
 	nodo *v;
 	if(i!=NULL){
 		printf("\n");
@@ -53,7 +72,7 @@ void iteractivo(nodo *i){
 	else
 		printf("\n*****Lista vacia...*****\n");
 	return;
-}
+}*/
 
 nodo *liberiaMemoria(nodo *i){
 	nodo *v=NULL;
@@ -71,7 +90,7 @@ nodo *liberiaMemoria(nodo *i){
 	return(i);
 }
 
-nodo *comienzo(){
+/*nodo *comienzo(){
 	int num,j;
 	nodo *i, *v;
 	i = creaNodo();
@@ -105,39 +124,55 @@ nodo *comienzo(){
 	}
 	v=i	;
 	return i;	
+}*/
+
+nodo *nodoFinal (nodo *i){
+	int j,num;
+	nodo *l,*v;
+	i=creaNodo();
+	printf("\nIngrese un digito: ");
+	j=scanf("%d",&num);
+	fflush(stdin);
+	if(j==1){
+		i->num=num;
+		i->liga=NULL;
+		l=i;
+		do{
+			v=creaNodo();
+			printf("Ingrese digito:");
+			j=scanf("%d",&num);
+			fflush(stdin);
+			if(j==1){
+				v->num=num;
+				v->liga=NULL;
+				l->liga=v;
+				l=v;
+			}
+			else{
+				free(v);
+				break;
+			}
+		}while(j==1);
+		printf("\n*****creando Listas enlazada...*****\n\n");
+	
+	}
+	else{
+		free(i);
+		return(NULL);
+	}
+	return i;
 }
 
-nodo *elmininar_x(nodo *i) {
-	nodo *v,*l;	
-	int ver,x,BAND =1;
-	v=i;
-	printf("Ingrese el dato que va a el:iminar ");
-	ver=scanf("%d",&x);
-	fflush(stdin);
-	if(ver==1){
-		while((v->num!=x)&&(BAND == 1))
-		{
-			if(v->liga!=NULL){
-				l=v;
-				v=v->liga;
-			}
-			else{
-				BAND=0;
-			}
-		}
-		if(BAND==0){
-			printf("\nEl dato %d no se encuentra para eliminar",x);
-		}
-		else{
-			if(i==v){
-				i=v->liga;
-			}
-			else{
-				l->liga=v->liga;
-			}
-		}
-		free(v);
+nodo *busqueda_recursiva(nodo *i,int num) {
+	if(i!=NULL){
+	
+		if(i->num==num)
+			printf("Se encuentra en la lista");
+		else 
+			busqueda_recursiva(i->liga,num);
 	}
+	else	
+		printf("No se encuentra"); 
+			
 	return(i);
 }
-

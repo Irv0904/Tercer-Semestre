@@ -1,89 +1,35 @@
+//PASO LA PRUEBA
 #include<stdio.h>
 #include<stdlib.h>
 
-struct datos{
+struct cnodo{
 	int num;
-	struct datos *liga;
+	struct cnodo *liga;
 };
 
-typedef struct datos  nodo;
+typedef struct cnodo nodo;
 
 void *creaMemoria(int n);
 nodo *creaNodo();
-void recursivo (nodo *i);
+//void iteractivo(nodo *i);
+//nodo *comienzo();
 nodo *nodoFinal (nodo *i);
-nodo *comienzo();
+void recursivo (nodo *i);
 nodo *liberiaMemoria(nodo *i);
-
-void desicion(){
-	nodo *i = NULL;
-	int opc;
-	printf("Lo quieres\n1-> Crear lista enlazada desde inicio\n");
-	printf("2-> Crear lista enlazada desde el final\n");
-	scanf("%d",opc);
-	switch(opc){
-		case 1:
-			i= comienzo();
-		case 2:
-	  		i = nodoFinal(i);
-		default:
-			printf("No hay error");	
-	}		
-}
-
-/*void desicion(){
-	int res;
-	printf("\nEliga lo que usted quiera hacer\n");
-	printf("\n1->INSERTAR UN NUMERO DESDE EL INICIO\n2->INSERTAR UN NUMERO DESDE EL FINAL\n");
-	printf("3->INSERTA UN NUMERO ANTES DE...\n4->INSERTAR UN NUMERO DESPUES DE...\n");
-	printf("5->ELIMINAR EL PRIMER NUMERO\n6->ELIMINAR EL ULTIMO NUMERO");
-	printf("7->ELIMINAR UN NUMERO ANTES DE...\n8->BUSQUEDA DE UN NUMERO DESORDENADA\n");
-	printf("9->BUSQUEDA DE UN NUMERO OREDENADA\n10->BUSQUEDA DE UN NUMERO RECURSIVO\n\nRESPUESTA: ");
-	scanf("%d",&res);
-	
-	switch(res){
-		case 1:
-			des_den();
-			break;
-		case 2:
-			des_den();
-			break;
-		case 3:
-			des_den();
-			break;
-		case 4:
-			des_den();
-			break;
-		case 5:
-			des_den();
-			break;
-		case 6:
-			des_den();
-			break;
-		case 7:
-			des_den();
-			break;
-		case 8:
-			des_den();
-			break;
-		case 9:
-			des_den();
-			break;
-		case 10:
-			des_den();
-			break;
-		default:
-			printf("\nOpcion Invalida");
-
-	}
-}*/
-	
+nodo *eliminar_antes_x(nodo *i);
 int main(){
-	printf("*******************************\n");
-	printf("*Bienvenido a listas enalzadas*");
-	printf("\n*******************************\n");
-	desicion();
-	return 0;
+	int num;
+	nodo *i=NULL;
+	i=nodoFinal(i);
+	recursivo(i);
+  	//i= comienzo();
+	//iteractivo (i);
+	i=eliminar_antes_x(i);
+	//iteractivo (i);
+	printf("\n");
+	recursivo(i);
+	i=liberiaMemoria(i);
+
 }
 
 void *creaMemoria(int n){
@@ -99,6 +45,21 @@ void *creaMemoria(int n){
 nodo *creaNodo(){
 	return(nodo *)creaMemoria(sizeof(nodo));
 } 
+
+/*void iteractivo(nodo *i){
+	nodo *v;
+	if(i!=NULL){
+		printf("\n");
+		for(v=i;v!=NULL;v=v->liga){
+			printf("%5d->", v->num);
+		}
+		printf("%s", v);
+	printf("\n\n");
+	}
+	else
+		printf("\n*****Lista vacia...*****\n");
+	return;
+}*/
 
 void recursivo (nodo *i){
 	if(i != NULL){
@@ -131,7 +92,7 @@ nodo *liberiaMemoria(nodo *i){
 	return(i);
 }
 
-nodo *comienzo(){
+/*nodo *comienzo(){
 	int num,j;
 	nodo *i, *v;
 	i = creaNodo();
@@ -146,7 +107,7 @@ nodo *comienzo(){
 		v= creaNodo();
 		printf("Ingrese dato: ");
 		j=scanf("%d", &num);
-		//fflush(stdin);
+		fflush(stdin);
 		if (j == 1){
 			v->num = num;
 			v->liga=i;
@@ -157,7 +118,7 @@ nodo *comienzo(){
 			break;
 		}
 		}while(j ==1);
-		printf("\n*****creando Listas enlazada...*****\n");
+		printf("\n\t*****creando Listas enlazada...*****\n");
 	}
 	else{
 		free(i);
@@ -165,7 +126,7 @@ nodo *comienzo(){
 	}
 	v=i	;
 	return i;	
-}
+}*/
 
 nodo *nodoFinal (nodo *i){
 	int j,num;
@@ -194,7 +155,7 @@ nodo *nodoFinal (nodo *i){
 				break;
 			}
 		}while(j==1);
-		printf("\n*****creando Listas enlazada...*****");
+		printf("\n*****creando Listas enlazada...*****\n\n");
 	
 	}
 	else{
@@ -202,4 +163,46 @@ nodo *nodoFinal (nodo *i){
 		return(NULL);
 	}
 	return i;
+}
+
+nodo *eliminar_antes_x(nodo *i) {
+	nodo *v,*l,*a;
+	int band=1,x,j;
+	printf("\nIngrese el numero de referencia: ");
+	j=scanf("%d", &x);
+	if(j==1){
+		if(i->num==x){
+			printf("No existe");
+		}
+		else{
+			v=i;
+			l=i;
+			while((v->num!=x)and(band=1)){
+				if(v->liga!=NULL){
+					a=l;
+					l=v;
+					v=v->liga;
+				}
+				else{
+					band=0;
+				}
+			}
+			if(band==0)
+			{
+				printf("no");
+			}
+			else
+			{
+				if(i->liga==v){
+					i=v;
+				}
+				else
+				{
+					a->liga=v;
+				}
+				free(l);
+			}
+		}
+	}
+	return i;	
 }
