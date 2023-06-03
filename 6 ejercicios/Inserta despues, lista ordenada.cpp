@@ -1,7 +1,7 @@
 //PASO LA PRUEBA
+
 #include<stdio.h>
 #include<stdlib.h>
-#include<conio.h>
 
 struct cnodo{
 	int num;
@@ -12,22 +12,17 @@ typedef struct cnodo nodo;
 
 void *creaMemoria(int n);
 nodo *creaNodo();
-//void iteractivo(nodo *i);
-//nodo *comienzo();
-nodo *nodoFinal (nodo *i);
-void recursivo (nodo *i);
+void iteractivo(nodo *i);
+nodo *comienzo();
 nodo *liberiaMemoria(nodo *i);
-nodo *eliminar_ultimo(nodo *i);
+nodo *insertar_despues_x(nodo *i);
 int main(){
-	int num;
+	//int num;
 	nodo *i=NULL;
-	i=nodoFinal(i);
-	recursivo(i);
-  	//i= comienzo();
-	//iteractivo (i);
-	i=eliminar_ultimo(i);
-	//iteractivo (i);
-	recursivo(i);
+  	i= comienzo();
+	iteractivo (i);
+	i=insertar_despues_x(i);
+	iteractivo (i);
 	i=liberiaMemoria(i);
 
 }
@@ -46,7 +41,7 @@ nodo *creaNodo(){
 	return(nodo *)creaMemoria(sizeof(nodo));
 } 
 
-/*void iteractivo(nodo *i){
+void iteractivo(nodo *i){
 	nodo *v;
 	if(i!=NULL){
 		printf("\n");
@@ -59,7 +54,7 @@ nodo *creaNodo(){
 	else
 		printf("\n*****Lista vacia...*****\n");
 	return;
-}*/
+}
 
 void recursivo (nodo *i){
 	if(i != NULL){
@@ -75,7 +70,6 @@ void recursivo (nodo *i){
 		printf("\n*****Lista Vacia...*****\n");
 	}
 }
-
 
 nodo *liberiaMemoria(nodo *i){
 	nodo *v=NULL;
@@ -93,13 +87,13 @@ nodo *liberiaMemoria(nodo *i){
 	return(i);
 }
 
-/*nodo *comienzo(){
+nodo *comienzo(){
 	int num,j;
 	nodo *i, *v;
 	i = creaNodo();
 	printf("\nIngrese un digito: ");
 	j=scanf("%d",&num);
-	//fflush(stdin);
+	fflush(stdin);
 	if(j == 1){
 		i ->num = num;
 		i -> liga=NULL;	
@@ -119,7 +113,7 @@ nodo *liberiaMemoria(nodo *i){
 			break;
 		}
 		}while(j ==1);
-		printf("\n\t*****creando Listas enlazada...*****\n");
+		printf("\n*****creando Listas enlazada...*****\n");
 	}
 	else{
 		free(i);
@@ -127,7 +121,7 @@ nodo *liberiaMemoria(nodo *i){
 	}
 	v=i	;
 	return i;	
-}*/
+}
 
 nodo *nodoFinal (nodo *i){
 	int j,num;
@@ -166,20 +160,42 @@ nodo *nodoFinal (nodo *i){
 	return i;
 }
 
-nodo *eliminar_ultimo(nodo *i) {
+nodo *insertar_despues_x(nodo *i)
+{
 	nodo *v,*l;
+	int band=1,j,dato,x;
 	v=i;
-	printf("\n\n\t*****Elminando ultimo nodo...*****\n\n");
-    if(i->liga==NULL) 
-        i=NULL;
-    else{
-    	while(v->liga!=NULL)
-		{
-	    	printf("a");
-			v=v->liga;
+	printf("\nIngrese el numero de referencia: ");
+	scanf("%d", &x);
+	printf("\nIngrese el numero: ");
+	j=scanf("%d", &dato);
+	if(j==1)
+	{
+		while((v->num!=x)and(band==1)){
+			if(v->liga!=NULL){
+				v=v->liga;
+			}
+			else{
+				band=0;
+			}
+		}
+		if(band==1){
+			if(v->num>dato)
+			{
+				l=creaNodo();
+				l->num=dato;
+				l->liga=v->liga;
+				v->liga=l;
+			}
+			else
+			{
+				printf("\n\n***\tEl numero que ingreso es invalido\n\n");
+			}
+		}
+		else{
+			printf("\ndado com referencia es nulo");
 		}
 	}
-	
-	return(i);
-
+	return i;	
 }
+

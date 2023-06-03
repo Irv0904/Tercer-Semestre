@@ -17,18 +17,27 @@ nodo *creaNodo();
 nodo *nodoFinal (nodo *i);
 void recursivo (nodo *i);
 nodo *liberiaMemoria(nodo *i);
-nodo *insertar_inicio(nodo *i);
-
+nodo *insertar_inicio(nodo *i, int dato);
 int main(){
-	//int num;
+	int j, dato;
 	nodo *i=NULL;
   	//i= comienzo();
 	//iteractivo (i);
 	i=nodoFinal(i);
 	recursivo(i);
-	i=insertar_inicio(i);
+	printf("\nIngrese el numero: ");
+	j=scanf("%d", &dato);
+	fflush(stdin);
+	if(j==1)
+	{
+		i=insertar_inicio(i,dato);
+		recursivo(i);
+
+	}
+	else
+		printf("\nError no es un numero\n");
+	
 	//iteractivo (i);
-	recursivo(i);
 	i=liberiaMemoria(i);
 
 }
@@ -47,7 +56,7 @@ nodo *creaNodo(){
 	return(nodo *)creaMemoria(sizeof(nodo));
 } 
 
-/*void iteractivo(nodo *i){
+void iteractivo(nodo *i){
 	nodo *v;
 	if(i!=NULL){
 		printf("\n");
@@ -60,7 +69,7 @@ nodo *creaNodo(){
 	else
 		printf("\n*****Lista vacia...*****\n");
 	return;
-}*/
+}
 
 void recursivo (nodo *i){
 	if(i != NULL){
@@ -93,7 +102,7 @@ nodo *liberiaMemoria(nodo *i){
 	return(i);
 }
 
-/*nodo *comienzo(){
+nodo *comienzo(){
 	int num,j;
 	nodo *i, *v;
 	i = creaNodo();
@@ -127,7 +136,7 @@ nodo *liberiaMemoria(nodo *i){
 	}
 	v=i	;
 	return i;	
-}*/
+}
 
 nodo *nodoFinal (nodo *i){
 	int j,num;
@@ -165,20 +174,3 @@ nodo *nodoFinal (nodo *i){
 	}
 	return i;
 }
-
-nodo *insertar_inicio(nodo *i) {
-	nodo *v;
-    int j,dato;
-    v=creaNodo();
-    printf("\nIntroduzca un dato: ");
-    j=scanf("%d",&dato);
-    fflush(stdin);
-    if(j==1) {
-        v->liga=i;
-        v->num=dato;
-        i= v;
-        }
-    printf("\n\t*****Ingresando nuevo dato al inicio...*****\n");
-    return i;
-}
-

@@ -1,4 +1,5 @@
 //PASO LA PRUEBA
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
@@ -12,20 +13,18 @@ typedef struct cnodo nodo;
 
 void *creaMemoria(int n);
 nodo *creaNodo();
-//void iteractivo(nodo *i);
-//nodo *comienzo();
 nodo *nodoFinal (nodo *i);
 void recursivo (nodo *i);
 nodo *liberiaMemoria(nodo *i);
-nodo *eliminar_ultimo(nodo *i);
+nodo *elmininar_x(nodo *i);
 int main(){
 	int num;
 	nodo *i=NULL;
-	i=nodoFinal(i);
+  	i=nodoFinal(i);
 	recursivo(i);
-  	//i= comienzo();
+	//i= comienzo();
 	//iteractivo (i);
-	i=eliminar_ultimo(i);
+	i=elmininar_x(i);
 	//iteractivo (i);
 	recursivo(i);
 	i=liberiaMemoria(i);
@@ -75,7 +74,6 @@ void recursivo (nodo *i){
 		printf("\n*****Lista Vacia...*****\n");
 	}
 }
-
 
 nodo *liberiaMemoria(nodo *i){
 	nodo *v=NULL;
@@ -166,20 +164,41 @@ nodo *nodoFinal (nodo *i){
 	return i;
 }
 
-nodo *eliminar_ultimo(nodo *i) {
-	nodo *v,*l;
+nodo *elmininar_x(nodo *i) {
+	nodo *v,*l,*k;	
+	int j,dato;
+	int band =1;
 	v=i;
-	printf("\n\n\t*****Elminando ultimo nodo...*****\n\n");
-    if(i->liga==NULL) 
-        i=NULL;
-    else{
-    	while(v->liga!=NULL)
+	printf("\n\nIngrese el dato que va a eliminar ");
+	j=scanf("%d",&dato);
+	fflush(stdin);
+	if(j==1){
+		while((v->num<dato)&&(band == 1))
 		{
-	    	printf("a");
-			v=v->liga;
+			
+			if(v->liga!=NULL){
+				l=v;
+				v=v->liga;
+			}
+			else
+				band=0;	
 		}
+		if(band==1)
+		{
+			if((l->num<dato)&&(v->num>dato))
+			{
+				k=creaNodo();
+				k->num=dato;
+				k->liga=v;
+				l->liga=k;
+			}
+			else{
+				printf("\n\n\t\t\tYa existe ese nuemro\n\n");
+			}
+		}
+		else{
+			printf("\nNo se puede\n\n");	
+		}
+		return(i);				
 	}
-	
-	return(i);
-
 }

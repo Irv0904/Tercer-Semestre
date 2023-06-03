@@ -1,0 +1,94 @@
+Equipos:
+
+Grupo A: 						Grupo B: 						Grupo C: 						Grupo D:
+
+-Jamaica						-Haití						-Costa Rica						-Canada
+-Nicaragua						-Honduras						-El Salvador					-Cuba
+-Estados Unidos					-Mexico						-Panamá						-Guatemala
+-PRE9							-Qatar						-PRE8							-PRE7
+
+
+Estadios:
+
+Nombre				Capacidad		Lugar
+
+Sofi Stadium			70 000	 	Los Angeles, CA
+Snapdragon				35 000	 	San Diego, CA
+State Farm Stadium	 	63 400 		Gkendale, AZ
+AT&T Stadium			80 000 		Arlington, TX
+Allegiant Stadium			25 000	 	Las Vegas, NV
+Levi's Stadium			68 500 		Santa Clara, CA
+Shell Energy Stadium		22 039 		Houston,TX
+NRG Stadium				72 220		Houston,TX
+DRV PNK				19 100	 	Fort Lauderdale, FL
+Bnak of America Stadium		75 523	 	Charlotte, NC
+TQL Stadium				26 000	 	Cincinnati, OH
+CITY PARK Stadium			22 500	 	St. Louis, MO
+Soldier Field			61 500	 	Chicago, IL
+Red Bull  Arena			25 000	 	Harrison, NJ
+BMO Field				30 000	 	Toronto, CAN
+
+
+Partidos por grupo 
+
+Dia					Grupo A					Estadio					Capacidad		Lugar					Resultado
+
+Sabado 24 de Junio		Estados Unidos vs Jamaica		Soldier Field				61 500		Chicago, IL				    -
+Domingo 25 de Junio		Nicaragua vs PRE9				DVR PNK					19 100		Fort Lauderdale, FL		    -
+Miercoles 28 de junio		Jamaica vs Nicaragua			CITY PARK Stadium				22 500		St. Louis, MO			    -
+Miercoles 28 de junio		PRE9 vs Estados Unidos			CITY PARK Stadium				22 500		St. Louis, MO			    -
+Domingo 2 de julio		Estados Unidos vs Nicaragua		Bank of America Stadium			75 523		Charlotte, NC			    -
+Domingo 2 de julio		Jamica vs PRE9				Levi's Stadium				68 500		Santa Clara, CA			    -  
+
+					Grupo B
+Domingo 25 de Junio		Haiti vs Qatar				NRG Stadium					72 220		Houston,TX				    -
+Domingo 25 de Junio		Mexico vs Honduras			NRG Stadium					72 220		Houston,TX				    -
+Jueves 29 de Junio		Qatar vs Honduras				State Farm Stadium	 		63 400 		Gkendale, AZ			    -
+Jueves 29 de Junio		Haiti vs Mexico				State Farm Stadium	 		63 400 		Gkendale, AZ			    -
+Domingo 2 de julio		Honduras vs Haiti				Bank of America Stadium			75 523		Charlotte, NC			    -
+Domingo 2 de julio		Mexico Qatar				Levi's Stadium				68 500		Santa Clara, CA			    -
+
+					Grupo C
+Lunes 26 de Junio			El Salv1dor vs PRE8			DVR PNK					19 100		Fort Lauderdale, FL		    -
+Lunes 26 de Junio			Costa Rica vs Panama			DVR PNK					19 100		Fort Lauderdale, FL		    -
+Viernes 30 de Junio		PRE8 VS Panama				Red Bull  Arena				25 000	 	Harrison, NJ			    -
+Viernes 30 de Junio		El Salvador vs Costa Rica		Red Bull  Arena				25 000	 	Harrison, NJ			    -
+Martes 4 de Julio			Costa Rica vs PRE8			Red Bull  Arena				25 000	 	Harrison, NJ			    -
+Martes 4 de Julio			Panama vs El Salvador			Shell Energy Stadium			22 039 		Houston,TX				    -
+
+					Grupo D
+Martes 27 de Junio		Canada vs PRE7				BMO Field					30 000	 	Toronto, CAN			    -
+Martes 27 de Junio		Guatemala vs Cuba				DVR PNK					19 100		Fort Lauderdale, FL		    -
+Sabado 1 de julio			Cuba vs PRE7				Shell Energy Stadium			22 039 		Houston,TX				    -
+Sabado 1 de julio			Guatemala vs Canada			Shell Energy Stadium			22 039 		Houston,TX				    -
+Martes 4 de Julio			PRE7 VS Guatemala				Red Bull  Arena				25 000	 	Harrison, NJ			    -
+Martes 4 de Julio			Canada vs Cuba				Shell Energy Stadium			22 039 		Houston,TX				    -
+
+
+Cuartos Finales
+
+Dia					Cruce						Estadio					Capacidad		Lugar					Resultado
+
+Sabado 8 de Julio			 1- GC vs SB				AT&T Stadium				80 000 		Arlington, TX			    -
+Sabado 8 de Julio			 2- SC vs GB				AT&T Stadium				80 000 		Arlington, TX			    -
+Domingo 9 de julio		 3- GD vs SA				TQL Stadium					26 000	 	Cincinnati, OH			    -
+Domingo 9 de julio		 4- SD VS GA				TQL Stadium					26 000	 	Cincinnati, OH			    -
+
+Semi-Final
+
+Dia					Cruce						Estadio					Capacidad		Lugar					Resultado
+
+Miercoles 12 de julio		A-G1 vs G2																			    -
+Miercoles 12 de julio		B-G3 vs G4																			    -
+	
+
+Final
+
+Dia					Cruce						Estadio					Capacidad		Lugar					Resultado
+
+Domingo 16 de Julio		GA vs GB					Sofi Stadium				70 000	 	Los Angeles, CA			    -
+
+
+
+
+

@@ -1,4 +1,4 @@
-//PASO LA PRUEBA
+//YA ESTA LISTO PARA USARLO
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -12,28 +12,28 @@ typedef struct cnodo nodo;
 
 void *creaMemoria(int n);
 nodo *creaNodo();
-//void iteractivo(nodo *i);
-//nodo *comienzo();
-nodo *nodoFinal (nodo *i);
-void recursivo (nodo *i);
-nodo *liberiaMemoria(nodo *i);
+void iteractivo(nodo *i);
+void iteractivo2(nodo *r);
+nodo *comienzo();
+nodo *comienzo2();
 void ordenarLista(nodo*i);
-nodo *insertar_despues_x(nodo *i);
+void megaLista(nodo **i, nodo** r);
+nodo *liberiaMemoria(nodo *i);
+nodo *liberiaMemoria2(nodo *r);
 int main(){
-	//int num;
 	nodo *i=NULL;
-  	//i= comienzo();
-	//iteractivo (i);
-	i=nodoFinal(i);
-	recursivo(i);
-	printf("\n");
+	nodo *r=NULL;
+  	i= comienzo();
+  	printf("\t\tPrimera lista: \n");
+  	iteractivo (i);
+	r= comienzo2();
+	printf("\t\tSegunda lista\n");
+	iteractivo2 (r);
+	megaLista(&i,&r);
 	ordenarLista(i);
-	//iteractivo (i);
-	recursivo(i);
-	i=insertar_despues_x(i);
-	recursivo(i);
+	printf("\t\tLista Ordenada\n");
+	iteractivo (i);
 	i=liberiaMemoria(i);
-
 }
 
 void *creaMemoria(int n){
@@ -50,7 +50,7 @@ nodo *creaNodo(){
 	return(nodo *)creaMemoria(sizeof(nodo));
 } 
 
-/*void iteractivo(nodo *i){
+void iteractivo(nodo *i){
 	nodo *v;
 	if(i!=NULL){
 		printf("\n");
@@ -63,21 +63,21 @@ nodo *creaNodo(){
 	else
 		printf("\n*****Lista vacia...*****\n");
 	return;
-}*/
+}
 
-void recursivo (nodo *i){
-	if(i != NULL){
-		printf("%5d->",i->num);
-		if(i->liga!=NULL){
-			recursivo (i->liga);
+void iteractivo2(nodo *r){
+	nodo *v;
+	if(r!=NULL){
+		printf("\n");
+		for(v=r;v!=NULL;v=v->liga){
+			printf("%5d->", v->num);
 		}
-		else{
-			printf("%s",i->liga);
-		}
+		printf("%s", v);
+	printf("\n\n");
 	}
-	else{
-		printf("\n*****Lista Vacia...*****\n");
-	}
+	else
+		printf("\n*****Lista vacia...*****\n");
+	return;
 }
 
 nodo *liberiaMemoria(nodo *i){
@@ -89,14 +89,30 @@ nodo *liberiaMemoria(nodo *i){
 			v->liga= NULL;
 			free(v);
 		}
-		printf("\n\n*****MEMORIA LIBERADA...*****\n");
+		printf("\n\n*****MEMORIA LIBERADA DE LA PRIMERA LISTA...*****\n");
 	}
 	else
-		printf("\n*****LISTA LIBERADA...*****\n\n");
+		printf("\n*****LISTA LIBERADA DE LA PRIMERA LISTA...*****\n\n");
 	return(i);
 }
 
-/*nodo *comienzo(){
+nodo *liberiaMemoria2(nodo *r){
+	nodo *v=NULL;
+	if(r!=NULL){
+		while(r!=NULL){
+			v=r;
+			r=r->liga ;
+			v->liga= NULL;
+			free(v);
+		}
+		printf("\n\n*****MEMORIA LIBERADA DE LA SEGUNDA LISTA...*****\n");
+	}
+	else
+		printf("\n*****LISTA LIBERADA DE LA SEGUNDA LISTA...*****\n\n");
+	return(r);
+}
+
+nodo *comienzo(){
 	int num,j;
 	nodo *i, *v;
 	i = creaNodo();
@@ -122,7 +138,7 @@ nodo *liberiaMemoria(nodo *i){
 			break;
 		}
 		}while(j ==1);
-		printf("\n*****creando Listas enlazada...*****\n");
+		//printf("\n\t*****creando Listas enlazada...*****\n");
 	}
 	else{
 		free(i);
@@ -130,76 +146,59 @@ nodo *liberiaMemoria(nodo *i){
 	}
 	v=i	;
 	return i;	
-}*/
+}
 
-nodo *nodoFinal (nodo *i){
-	int j,num;
-	nodo *l,*v;
-	i=creaNodo();
+nodo *comienzo2(){
+	int num,j;
+	nodo *r, *v;
+	r = creaNodo();
 	printf("\nIngrese un digito: ");
 	j=scanf("%d",&num);
 	fflush(stdin);
-	if(j==1){
-		i->num=num;
-		i->liga=NULL;
-		l=i;
+	if(j == 1){
+		r ->num = num;
+		r -> liga=NULL;	
+		
 		do{
-			v=creaNodo();
-			printf("Ingrese digito:");
-			j=scanf("%d",&num);
-			fflush(stdin);
-			if(j==1){
-				v->num=num;
-				v->liga=NULL;
-				l->liga=v;
-				l=v;
-			}
-			else{
-				free(v);
-				break;
-			}
-		}while(j==1);
-		printf("\n*****creando Listas enlazada...*****\n\n");
-	
-	}
-	else{
-		free(i);
-		return(NULL);
-	}
-	return i;
-}
-
-nodo *insertar_despues_x(nodo *i)
-{
-	nodo *v,*l;
-	int band=1,j,dato,x;
-	v=i;
-	printf("\nIngrese el numero de referencia: ");
-	scanf("%d", &x);
-	printf("\nIngrese el numero: ");
-	j=scanf("%d", &dato);
-	if(j==1)
-	{
-		while((v->num!=x)and(band==1)){
-			if(v->liga!=NULL){
-				v=v->liga;
-			}
-			else{
-				band=0;
-			}
-		}
-		if(band==1){
-			l=creaNodo();
-			l->num=dato;
-			l->liga=v->liga;
-			v->liga=l;
+		v= creaNodo();
+		printf("Ingrese dato: ");
+		j=scanf("%d", &num);
+		fflush(stdin);
+		if (j == 1){
+			v->num = num;
+			v->liga=r;
+			r=v;
 		}
 		else{
-			printf("\ndado com referencia es nulo");
+			free(v);
+			break;
 		}
+		}while(j ==1);
+		//printf("\n\t*****creando Listas enlazada...*****\n");
 	}
-	return i;	
+	else{
+		free(r);
+		return (NULL);
+	}
+	v=r;
+	return r;	
+}	
+
+void megaLista(nodo** i, nodo** r) {
+    if (*i == NULL) {
+        *i = *r;
+        return;
+    }
+
+    nodo *v = *i;
+    while (v->liga != NULL) {
+        v = v->liga;
+    }
+
+    v->liga = *r;
+    *r = NULL;
 }
+
 void ordenarLista(nodo* i) {
     int band;
     nodo* v;
@@ -225,4 +224,3 @@ void ordenarLista(nodo* i) {
         l = v;
     } while (band);
 }
-

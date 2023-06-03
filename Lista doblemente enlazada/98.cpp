@@ -111,41 +111,77 @@ nodo *comienzo(){
 }
 
 nodo *eliminar_despues_x(nodo *i) {
-	nodo *v,*l,*t;
-	int band=1,x,j;
-	v=i;
-	printf("Ingrese el numero de referencia: ");
-	j=scanf("%d", &x);
-	if(j==1){
-		while((v->num!=x)&&(band=1))
-		{
-			if(v->liga!=NULL){
-				l=v;
-				v=v->liga;
-			}
+	int j, band = 1, aux;
+	
+	nodo *q, *r, *t;
+	int num;
+	float coef;
+	i = creaNodo();
+	
+	printf("\n Introduzca el coeficiente (letra para terminar)");
+	i=scanf("%f",&coef);
+	fflush(stdin);
+	printf("\n Introduzca la potencia (letra para terminar)");
+	j=scanf("%d",&num);
+	fflush(stdin);
+	
+	
+	
+	if ( i != 1 && j != 1 ) // 1
+	 {
+	 	free(i);
+	 	i = NULL;
+	 	return(i);
+	 }
+	  else   
+	    
+	    	
+	    	if(coef != 0.0)
+		      	{
+				i->coef = coef;
+				i->num = num;
+				i->liga = NULL;
+		     	}
 			else
-			{
-				band=0;
+     	     { 
+     	     free(i);
+     	     i=NULL;
+     	   //  return(i);
+     		printf("\n El primer termino con coeficiente 0 no fue incluido: %5.2",coef );
 			}
-		}
-		if(band==0){
-			printf("No existe numero despues...");
-		}
-		else
-		{					
-			t=v;
-			v=v->liga;
-			if(t->liga!=NULL)
-			{
-				t->liga=v->liga;
-				v->liga=t;
-			}
-			else
-			{
-				printf("\nNo hay numero despues de la referencia\n");
-			}
-		}
-		free (v);
-	}
-	return i;	
+	    	
+	   	do {
+	      //	q= creanodo();
+	      	
+	printf("\n Introduzca el coeficiente (letra para terminar)");
+	i=scanf("%f",&coef);
+	fflush(stdin);
+	printf("\n Introduzca la potencia (letra para terminar)");
+	j=scanf("%d",&num);
+	fflush(stdin);
+	      
+	        if ( i != 1 && j != 1)
+	          {   
+	 	      //  free(q);
+	 	        band = 0;
+	          }
+	      	  else   // 2
+	      	     {
+	      	     
+				 
+		      if(coef != 0.0)
+                 {
+			      	     i = sortedInsert219052022(i, num, coef);
+	             }
+	             else
+	                  {
+	                  	printf("\n El termino con coeficiente 0 no fue incluido: %5.2",coef );
+	                  	printf("\n y exponente  fue incluido: %d",num );
+					
+				   }
+	             
+			}// fin del else 2
+	       }while (band == 1);
+		  }// fin del else 1
+	  return(i);	
 }

@@ -193,8 +193,9 @@ nodo *elmininar_x(nodo *i) {
 				printf("\n\t*****Actualizando lista enlazada...*****\n");
 			}
 		}
-		return(i);
-		free(v);				
+		
+		free(v);
+		return(i);				
 	}
 }
 

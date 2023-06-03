@@ -1,208 +1,589 @@
+/*
+	Name:Menu de listas enlazadas 
+	Copyright:Todos los derecho reservados 
+	Author: Irving Jhon Villarreal Lasso
+	Date: 23/05/23 14:24
+	Description: Este codigo se usa para hacer un menu de diferentes partes de listas enlazadas
+	Calificacion: 
+*/
+
+//23/05/23 14:24
+
 #include<stdio.h>
 #include<stdlib.h>
-
-struct cnodo{
+#include<locale.h>
+struct cnodo
+{
 	int num;
 	struct cnodo *liga;
 };
 
 typedef struct cnodo nodo;
 
-nodo *menu_v1(nodo *i);
 void *creaMemoria(int n);
 nodo *creaNodo();
 nodo *comienzo();
-nodo *nodoFinal (nodo *i);
-void recursivo (nodo *i);
-void iteractivo(nodo *i);
-nodo *comienzo();
-nodo *insertar_despues_x(nodo *i);
-nodo *insertar_antes_x(nodo *i);
-nodo *insertar_final(nodo *i);
-nodo *insertar_inicio(nodo *i);
-nodo *elmininar_x(nodo *i);
-nodo *eliminar_ultimo(nodo *i);
-nodo *eliminar_primero(nodo *i);
-nodo *eliminar_antes_x(nodo *i);
-nodo *eliminar_despues_x(nodo *i);
-nodo *busqueda_desordenada(nodo *i);
-nodo *busqueda_ordenada(nodo *i);
-nodo *busqueda_recursiva(nodo *i,int num);
-nodo *liberiaMemoria(nodo *i);
+nodo *nodoFinal (nodo *p);
+void recursivo (nodo *p);
+void iteractivo(nodo *p);
+nodo *insertar_despues_x(nodo *p, int x, int ref);
+nodo *insertar_antes_x(nodo *p, int x, int ref);
+nodo *insertar_final(nodo *p, int x);
+nodo *insertar_inicio(nodo *p,int x);
+nodo *elmininar_x(nodo *p, int x);
+nodo *eliminar_ultimo(nodo *p);
+nodo *eliminar_primero(nodo *p);
+nodo *eliminar_antes_x(nodo *p, int ref);
+nodo *eliminar_despues_x(nodo *p,int ref);
+nodo *busqueda_desordenada(nodo *p, int x);
+nodo *busqueda_ordenada(nodo *p, int x);
+nodo *busqueda_recursiva(nodo *p,int num);
+nodo *cargarlista(nodo *p);
+void guardarlista(nodo *p);
+nodo *liberarMemoria(nodo *p);
 
 int main()
 {
-	nodo *i=NULL;
+	setlocale(LC_ALL,"");
+	system("color 0F");
+	nodo *p=NULL;
 	int opc,lec,num;
-	do{
+	int x,j,k,ref;
+	do
+	{
 		system("CLS");
-		system("color 01");
-		printf("*****************\n*Listas enlazada*\n*****************");
-		printf("\n1->Crear\n2->Insertar\n3->Eliminar\n4->Busqueda\n5->Recorrer\n6->Salir\nREspuesta: ");
-		scanf("%d", &opc);
-		switch(opc)
+		printf("\t\t\t******************\n\t\t\t*Listas Enlazadas*\n\t\t\t******************\n");
+		printf("\n\t\t\t1->Crear\n\t\t\t2->Insertar\n\t\t\t3->Eliminar\n\t\t\t4->Busqueda\n");
+		printf("\t\t\t5->Recorrer\n\t\t\t6->Guardar\n\t\t\t7->Cargar\n\t\t\t8->Liberar Memoria\n\t\t\t9->Salir \n\t\t\tRespuesta: ");
+		j=scanf("%d", &opc);
+		fflush(stdin);
+		if(j==1)
 		{
-			case 1:
-				do
-				{
-					system("CLS");
-					system("color 05");
-					printf("****************\n*Lista enlazada*\n****************\n");
-					printf("1->Crear Inicio\n2->Crear Final\n3->Regresar\nRespuesta: ");
-					scanf("%d",&lec);
-					system("CLS");
-					switch(lec)
+			switch(opc)
+			{
+				case 1:
+					do
 					{
-						case 1:
-							i=comienzo();
+						system("CLS");
+						printf("\t\t\t**************\n\t\t\t*Crear Listas*\n\t\t\t**************\n");
+						printf("\n\t\t\t1->Inicio\n\t\t\t2->Final\n\t\t\t3->Regresar\n\t\t\tRespuesta: ");
+						j=scanf("%d",&lec);
+						fflush(stdin);
+						if(j==1)
+						{
+							system("CLS");
+							switch(lec)
+							{
+								case 1:
+									if(p==NULL)
+									{
+										p=comienzo();
+										iteractivo(p);
+										system("PAUSE");
+										break;
+									}
+									else
+									{
+										printf("\n\t\t\tYA HAY UNA LISTAS\n\n");
+										system("PAUSE");
+										break;
+									}
+								case 2:
+									if(p==NULL)
+									{
+										p=nodoFinal(p);
+										iteractivo(p);
+										system("PAUSE");
+										break;
+									}
+									else
+									{
+										printf("\n\t\tYA HAY UNA LISTAS\n\n");
+										system("PAUSE");
+										break;
+									}
+								case 3:
+									break;
+								default:
+									printf("\n\n\t\tLa selección fue incorrecto, intente de nuevo\n\n");
+									system("PAUSE");
+									break;
+							}
+						}
+						else
+						{
+							printf("\n\n\t\tLa selección fue incorrecto, intente de nuevo\n\n");
+							system("PAUSE");				
+						}
+					}while(lec!=3);
+					break;
+				case 2:
+					do
+					{
+						system("CLS");
+						printf("\t\t\t******************************\n\t\t\t*Insertar en listas enlazadas*\n\t\t\t******************************\n");
+						printf("\n\t\t\t1->Inicio\n\t\t\t2->Final\n\t\t\t3->Antes de...");
+						printf("\n\t\t\t4->Despues de...\n\t\t\t5->Regresar\n\t\t\tRespuesta: ");
+						j=scanf("%d",& lec);
+						fflush(stdin);
+						if(j==1)
+						{
+							switch(lec)
+							{
+								case 1:
+									if(p!=NULL)
+									{
+										iteractivo(p);
+										printf("\nIngrese el numero: ");
+										j=scanf("%d", &x);
+										fflush(stdin);
+										if(j==1)
+										{
+											p=insertar_inicio(p,x);
+											iteractivo(p);
+											system("PAUSE");
+											break;
+										}
+										else
+										{
+											printf("\n\t\t\tERROR NO ES UN NUMERO\n");
+											system("PAUSE");
+											break;
+										}
+									}
+									else
+									{
+										printf("\n\t\t\tNO HAY LISTAS\n\n");
+										system("PAUSE");
+										break;
+									}
+								case 2:
+									if(p!=NULL)
+									{
+									
+										iteractivo(p);
+										printf("\nIngrese el número: ");
+										j=scanf("%d", &x);
+										fflush(stdin);
+										if(j==1)
+										{
+											p=insertar_final(p,x);
+											iteractivo(p);
+											system("PAUSE");
+											break;
+										}
+										else
+										{
+											printf("\n\t\t\tERROR NO ES UN NUMERO\n\n");
+											system("PAUSE");
+											break;
+										}
+									}
+									else
+									{
+										printf("\n\t\t\tNO HAY LISTAS\n\n");
+										system("PAUSE");
+										break;
+									}
+								case 3:
+									if(p!=NULL)
+									{
+										iteractivo(p);
+										printf("\nIngrese el numero de referencia: ");
+										k=scanf("%d",&ref);
+										fflush(stdin);
+										printf("\nIngrese el nuevo numero: ");
+										j=scanf("%d",&x);
+										fflush(stdin);
+										if((j==1)&&(k==1))
+										{
+											p=insertar_antes_x(p,x,ref);
+											iteractivo(p);
+											system("PAUSE");
+											break;
+										}
+										else
+										{
+											printf("\n\t\t\tERROR NO ES UN NUMERO\n");
+											system("PAUSE");
+											break;
+										}
+									}
+									else
+									{
+										printf("\n\t\t\tNO HAY LISTAS\n\n");
+										system("PAUSE");
+										break;
+									}	
+								case 4:
+									if(p!=NULL)
+									{
+										iteractivo(p);
+										printf("Ingrese el numero de referencia: ");
+										k=scanf("%d",&ref);
+										fflush(stdin);
+										printf("Ingrese el nuevo numero: ");
+										j=scanf("%d",&x);
+										fflush(stdin);
+										if((k==1)&&(j==1))
+										{
+											p=insertar_despues_x(p,x,ref);
+											iteractivo(p);
+											system("PAUSE");
+											break;			
+										}
+										else
+										{
+											printf("\n\t\t\tERROR NO ES UN NUMERO\n");
+											system("PAUSE");
+											break;
+										}
+		
+									}
+									else
+									{
+										printf("\n\t\t\tNO HAY LISTAS\n\n");
+										system("PAUSE");
+										break;
+									}
+								case 5:
+									break;
+								default:
+									printf("\n\n\t\tLa selección fue incorrecto, intente de nuevo\n\n");
+									system("PAUSE");
+									break;
+							}
+						}
+						else
+						{
+							printf("\n\n\t\tLa selección fue incorrecto, intente de nuevo\n\n");
+							system("PAUSE");	
+						}
+					}while(lec!=5);	
+					break;
+				case 3:
+					do
+					{
+						system("CLS");
+						printf("\t\t\t******************************\n\t\t\t*Eliminar en listas enlazadas*\n\t\t\t******************************\n");
+						printf("\n\t\t\t1->Primero\n\t\t\t2->Ultimo\n\t\t\t3->x");
+						printf("\n\t\t\t4->Antes de...\n\t\t\t5->Despues de...");
+						printf("\n\t\t\t6->Regresar\n\t\t\tRespuesta: ");
+						j=scanf("%d",&lec);
+						fflush(stdin);
+						if(j==1)
+						{
+							switch(lec)
+							{
+								case 1:
+									if(p!=NULL)
+									{
+										p=eliminar_primero(p);
+										iteractivo(p);
+										system("PAUSE");
+										break;
+									}
+									else
+									{
+										printf("\n\t\t\tNO HAY LISTAS\n\n");
+										system("PAUSE");
+										break;
+									}
+								case 2:
+									if(p!=NULL)
+									{
+										p=eliminar_ultimo(p);
+										iteractivo(p);
+										system("PAUSE");
+										break;
+									}
+									else
+									{
+										printf("\n\t\tNO HAY LISTAS\n\n");
+										system("PAUSE");
+										break;
+									}
+								case 3:
+									if(p!=NULL)
+									{
+										iteractivo(p);
+										printf("\n\nIngrese el dato que va a eliminar ");
+										j=scanf("%d",&x);
+										fflush(stdin);
+										if(j==1)
+										{
+											p=elmininar_x(p,x);
+											iteractivo(p);
+											system("PAUSE");
+											break;
+										}
+										else
+										{
+											printf("\n\t\tERROR NO ES UN NUMERO\n\n");
+											system("PAUSE");
+											break;
+										}
+									}
+									else
+									{
+										printf("\n\t\tNO HAY LISTAS\n\n");
+										system("PAUSE");
+										break;
+									}
+								case 4:
+									if(p!=NULL)
+									{
+										iteractivo(p);
+										printf("Ingrese el numero de referencia: ");
+										j=scanf("%d",&ref);
+										fflush(stdin);
+										if(j==1)
+										{
+											p=eliminar_antes_x(p, ref);
+											iteractivo(p);
+											system("PAUSE");
+											break;
+										}
+										else
+										{
+											printf("\n\t\tERROR NO ES UN NUMERO\n\n");
+											system("PAUSE");
+											break;			
+										}
+									}
+									else
+									{
+										printf("\n\t\tNO HAY LISTAS\n\n");
+									}
+								case 5:
+									if(p!=NULL)
+									{
+										iteractivo(p);
+										printf("Ingrese el numero de referencia: ");
+										j=scanf("%d",&ref);
+										fflush(stdin);
+										if(j==1)
+										{
+											p=eliminar_despues_x(p, ref);
+											iteractivo(p);
+											system("PAUSE");
+											break;
+										}
+										else
+										{
+											printf("\n\t\tERROR NO ES UN NUMERO\n\n");
+											system("PAUSE");
+											break;			
+										}
+									}
+									else
+									{
+										printf("\n\t\tNO HAY LISTAS\n\n");
+									}							
+								case 6:
+									break;
+								default:
+									printf("\n\nLa selección fue incorrecto,intente de nuevo\n\n");
+									system("PAUSE");
+									break;
+							}
+						}
+						else
+						{
+							printf("\n\nLa selección fue incorrecto,intente de nuevo\n\n");
 							system("PAUSE");
-							break;
-						case 2:
-							i=nodoFinal(i);
+						}	
+					}while(lec!=6);
+					break;
+				case 4:
+					do
+					{	
+						system("CLS");
+						printf("\t\t\t******************************\n\t\t\t*Busqueda en listas enlazadas*\n\t\t\t******************************\n");
+						printf("\n\t\t\t1->Desordenada\n\t\t\t2->Ordenada\n\t\t\t3->Recursiva\n\t\t\t4->Regresar\n\t\t\tRespuesta: ");
+						j=scanf("%d",&lec);
+						fflush(stdin);
+						if(j==1)
+						{
+							switch(lec)
+							{
+								case 1:
+									if(p!=NULL)
+									{
+										iteractivo (p);
+										printf("\nbuscar: ");
+										j=scanf("%d",&x);
+										fflush(stdin);
+										if(j==1)
+										{
+											p=busqueda_desordenada(p,x);
+											system("PAUSE");
+											break;
+										}
+										else
+										{
+											printf("\n\t\tNO ES UN NUMERO\n");
+											system("PAUSE");
+											break;
+										}
+									}
+									else
+									{
+										printf("\n\t\tNO HAY LISTAS\n");
+										system("PAUSE");
+										break;
+									}
+								case 2:
+									if(p!=NULL)
+									{
+										iteractivo (p);
+										printf("\nbuscar: ");
+										j=scanf("%d",&num);
+										fflush(stdin);
+										if(j==1)
+										{
+										p=busqueda_ordenada(p,x);
+										system("PAUSE");
+										break;
+										}
+										else
+										{
+											printf("\n\t\tNO ES UN NUMERO\n");
+											system("PAUSE");
+											break;
+										}
+									}
+									else
+									{
+										printf("\n\t\tNO HAY LISTAS\n");
+										system("PAUSE");
+										break;
+									}
+								case 3:
+									if(p!=NULL)
+									{
+										iteractivo (p);
+										printf("\nbuscar: ");
+										j=scanf("%d",&x);
+										fflush(stdin);
+										if(j==1)
+										{
+										p=busqueda_recursiva(p,x);
+										system("PAUSE");
+										break;
+										}
+										else
+										{
+											printf("\n\t\tNO ES UN NUMERO\n");
+											system("PAUSE");
+											break;
+										}
+									}
+									else
+									{
+										printf("\n\t\tNO HAY LISTAS\n");
+										system("PAUSE");
+										break;
+									}
+								case 4:	
+									break;
+								default:
+									printf("\n\nLa selección fue incorrecto,intente de nuevo\n\n");
+									system("PAUSE");
+									break;					
+							}
+						}
+						else
+						{
+							printf("\n\nLa selección fue incorrecto,intente de nuevo\n\n");
 							system("PAUSE");
-							break;
-						case 3:
-							break;
+						}
+					}while(lec!=4);
+					break;
+				case 5:
+					do
+					{
+						system("CLS");
+						printf("\t\t\t******************************\n\t\t\t*Recorrer en listas enlazadas*\n\t\t\t******************************\n");
+						printf("\n\t\t\t1->Iterativo\n\t\t\t2->recursivo\n\t\t\t3->Regresar\n\t\t\tRespuesta: ");
+						j=scanf("%d", &lec);
+						fflush(stdin);
+						if(j==1)
+						{
+							switch(lec)
+							{
+								case 1:
+									iteractivo(p);
+									system("PAUSE");
+									break;
+								case 2:
+									recursivo(p);
+									system("PAUSE");
+									break;
+								case 3:
+									break;
+								default:
+									printf("\n\nLa selección fue incorrecto,intente de nuevo\n\n");
+									system("PAUSE");
+									break;
+							}
+						}
+						else
+						{
+							printf("\n\nLa selección fue incorrecto,intente de nuevo\n\n");
+							system("PAUSE");
+						}
 					}
-				}while(lec!=3);
-				break;
-			case 2:
-				do
-				{
+					while(lec!=3);
+					break;
+				case 6:
 					system("CLS");
-					system("color 08");
-					printf("*****************************\n*Insertar en listas enlazada*\n*****************************");
-					printf("\n1->Inserta inicio\n2->Inserta Final\n3->Insertar antes de...");
-					printf("\n4->Insertar despues de...\n5->Regresar\nRespuesta: ");
-					scanf("%d",& lec);
-					switch(lec)
-					{
-						case 1:
-							i=insertar_inicio(i);
-							system("PAUSE");
-							break;
-						case 2:
-							i=insertar_final(i);
-							system("PAUSE");
-							break;
-						case 3:
-							i=insertar_antes_x(i);
-							system("PAUSE");
-							break;
-						case 4:
-							i=insertar_despues_x(i);
-							system("PAUSE");
-							break;
-						case 5:
-							break;
-					}
-				}while(lec!=5);	
-				break;
-			case 3:
-				do
-				{
+					printf("\t\t\t**************************");
+					printf("\n\t\t\t*Guardar Listas Enlazadas*\n");
+					printf("\t\t\t**************************\n\n");
+					guardarlista(p);
+					system("PAUSE");
+					break;
+				case 7:
+					system("CLS");				
+					printf("\t\t\t*************************");
+					printf("\n\t\t\t*Cargar Listas Enlazadas*\n");
+					printf("\t\t\t*************************\n\n");
+					p=cargarlista(p);
+					system("PAUSE");
+					break;
+				case 8:
 					system("CLS");
-					system("color 06");
-					printf("****************************\n*Eliminar en lista enlazada*\n****************************");
-					printf("\n1->Eminar el primero\n2->Eliminar ultimo\n3->Eliminar x");
-					printf("\n4->eliminar antes de...\n5->Eliminar despues de...(prox.)");
-					printf("\n6->Regresar\nRespuesta: ");
-					scanf("%d",&lec);
-					switch(lec)
-					{
-						case 1:
-							i=eliminar_primero(i);
-							system("PAUSE");
-							break;
-						case 2:
-							i=eliminar_ultimo(i);
-							system("PAUSE");
-							break;
-						case 3:
-							i=elmininar_x(i);
-							system("PAUSE");
-							break;
-						case 4:
-							i=eliminar_antes_x(i);
-							system("PAUSE");
-							break;
-						case 5:
-							i=eliminar_despues_x(i);
-							system("PAUSE");
-							break;
-						case 6:
-							break;
-					}	
-				}while(lec!=6);
-				break;
-			case 4:
-				do
-				{
-					
-					system("CLS");
-					system("Color 04");
-					printf("***************************\n*Busqueda en lista enlazada*\n***************************");
-					printf("\n1->Busqueda Dessordenada\n2->Busqueda Ordenada\n3->Busqueda recursiva\n4->Regresar\nRespuesta: ");
-					scanf("%d",&lec);
-					switch(lec)
-					{
-						case 1:
-							i=busqueda_desordenada(i);
-							break;
-						case 2:
-							i=busqueda_ordenada(i);
-							break;
-						case 3:
-							printf("\nbuscar: ");
-							scanf("%d",&num);
-							i=busqueda_recursiva(i,num);
-							break;
-						case 4:	
-							break;					
-					}
-				}while(lec!=4);
-				break;
-			case 5:
-				do
-				{
-					system("CLS");
-					system("color 0F");					
-					printf("*************************\n*Recorrer lista enlazada*\n*************************");
-					printf("\n1->Recorre Iterativo\n2->Recorre recursivo\n3->Regresar\nRespuesta: ");
-					scanf("%d", &lec);
-					switch(lec)
-					{
-						case 1:
-							iteractivo (i);
-							system("PAUSE");
-							break;
-						case 2:
-							recursivo(i);
-							system("PAUSE");
-							break;
-						case 3:
-							break;
-					}
-				}
-				while(lec!=3);
-				break;
-			case 6:
-				break;	
-					
+					p=liberarMemoria(p);
+					system("PAUSE");
+					break;
+				case 9:
+					p=liberarMemoria(p);
+					break;
+				default:
+					printf("\n\nLa selección fue incorrecto,intente de nuevo\n\n");
+					system("PAUSE");
+					break;			
+			}
 		}
-	}while(opc!=6);
+		else
+		{
+			printf("\n\nLa selección fue incorrecto,intente de nuevo\n\n");
+			system("PAUSE");	
+		}
+	}while(opc!=9);
 }
 
 void *creaMemoria(int n)
 {
-	void *i=(int *)malloc(n);
-	if(i==NULL)
+	void *p=(int *)malloc(n);
+	if(p==NULL)
 	{
 		printf("No hay memoria");
 		getchar();
 		exit(1);
 	}
-	return(i);
+	return(p);
 }
 
 nodo *creaNodo()
@@ -210,374 +591,374 @@ nodo *creaNodo()
 	return(nodo *)creaMemoria(sizeof(nodo));
 }
 
- void recursivo (nodo *i)
- {
-	if(i != NULL)
+void recursivo (nodo *p)
+{
+	if(p != NULL)
 	{
-		printf("%5d->",i->num);
-		if(i->liga!=NULL)
+		printf("%5d->",p->num);
+		if(p->liga!=NULL)
 		{
-			recursivo (i->liga);
+			recursivo (p->liga);
 		}
 		else
 		{
-			printf("%s",i->liga);
+			printf("%s",p->liga);
 		}
 	}
 	else
 		printf("\n*****Lista Vacia...*****\n");	
 }
 
-void iteractivo(nodo *i)
+void iteractivo(nodo *p)
 {
-	nodo *v;
-	if(i!=NULL)
+	nodo *q;
+	if(p!=NULL)
 	{
 		printf("\n");
-		for(v=i;v!=NULL;v=v->liga)
+		for(q=p;q!=NULL;q=q->liga)
 		{
-			printf("%5d->", v->num);
+			printf("%5d->", q->num);
 		}
-		printf("%s", v);
+		printf("%s", q);
 	printf("\n\n");
 	}
 	else
-		printf("\n*****Lista vacia...*****\n");
+		printf("\n*****Lista vacia...*****\n\n");
 	return;
 }
 
-nodo *liberiaMemoria(nodo *i)
+nodo *liberarMemoria(nodo *p)
 {
-	nodo *v=NULL;
-	if(i!=NULL)
+	nodo *q=NULL;
+	if(p!=NULL)
 	{
-		while(i!=NULL)
+		while(p!=NULL)
 		{
-			v=i;
-			i=i->liga ;
-			v->liga= NULL;
-			free(v);
+			q=p;
+			p=p->liga ;
+			q->liga= NULL;
+			free(q);
 		}
-		printf("\n\n*****MEMORIA LIBERADA...*****\n");
+		
+		printf("\n\n\t\t*****MEMORIA LIBERADA...*****\n\n");
 	}
 	else
-		printf("\n*****LISTA LIBERADA...*****\n\n");
-	return(i);
+	{
+		
+		printf("****NO HAY LISTA PARA LIBERADA...*****\n\n");
+	}
+	//free(p);	
+	return p;
 }
 
 nodo *comienzo()
 {
 	int num,j;
-	nodo *i, *v;
-	i = creaNodo();
-	printf("Ingrese un digito: ");
+	nodo *p, *q;
+	p = creaNodo();
+	printf("Ingrese un número, para salir ingrese una letra: ");
 	j=scanf("%d",&num);
-	//fflush(stdin);
+	fflush(stdin);
 	if(j == 1)
 	{
-		i ->num = num;
-		i -> liga=NULL;	
+		p ->num = num;
+		p -> liga=NULL;	
 		
 		do
 		{
-		v= creaNodo();
-		printf("Ingrese dato: ");
+		q= creaNodo();
+		printf("Ingrese un número, para salir ingrese una letra: ");
 		j=scanf("%d", &num);
 		fflush(stdin);
 		if (j == 1)
 		{
-			v->num = num;
-			v->liga=i;
-			i=v;
+			q->num = num;
+			q->liga=p;
+			p=q;
 		}
 		else
 		{
-			free(v);
+			free(q);
 			break;
 		}
 		}while(j ==1);
-		printf("\n\t*****creando Listas enlazada...*****\n\n");
+		printf("\n*****Creando Listas enlazada...*****\n");
+		printf("\n");
+		q=p;
+		return p;
 	}
 	else
 	{
-		free(i);
+		free(p);
 		return (NULL);
-	}
-	v=i	;
-	return i;	
+	}	
 }
 
-nodo *nodoFinal (nodo *i)
+nodo *nodoFinal (nodo *p)
 {
 	int j,num;
-	nodo *l,*v;
-	i=creaNodo();
-	printf("\nIngrese un digito: ");
+	nodo *l,*q;
+	p=creaNodo();
+	printf("Ingrese un número, para salir ingrese una letra: ");
 	j=scanf("%d",&num);
 	fflush(stdin);
 	if(j==1)
 	{
-		i->num=num;
-		i->liga=NULL;
-		l=i;
+		p->num=num;
+		p->liga=NULL;
+		l=p;
 		do
 		{
-			v=creaNodo();
-			printf("Ingrese digito:");
+			q=creaNodo();
+			printf("Ingrese un número, para salir ingrese una letra: ");
 			j=scanf("%d",&num);
 			fflush(stdin);
 			if(j==1)
 			{
-				v->num=num;
-				v->liga=NULL;
-				l->liga=v;
-				l=v;
+				q->num=num;
+				q->liga=NULL;
+				l->liga=q;
+				l=q;
 			}
 			else
 			{
-				free(v);
+				free(q);
 				break;
 			}
 		}while(j==1);
-		printf("\n*****creando Listas enlazada...*****\n");
+		printf("\n*****Creando Listas enlazada...*****");
+		printf("\n");
+		return p;
 	}
 	else
 	{
-		free(i);
+		free(p);
 		return(NULL);
 	}
-	printf("\n");
-	return i;
 }
 
-nodo *insertar_inicio(nodo *i) {
-	nodo *v;
-    int j,dato;
-    v=creaNodo();
-    printf("\nIntroduzca un dato: ");
-    j=scanf("%d",&dato);
-    fflush(stdin);
-    if(j==1) {
-        v->liga=i;
-        v->num=dato;
-        i= v;
-        }
+nodo *insertar_inicio(nodo *p, int x) 
+{
+	nodo *q;
+    q=creaNodo();
+	q->liga=p;
+    q->num=x;
+    p= q;
     printf("\n\t*****Ingresando nuevo dato al inicio...*****\n");
-    return i;
+    return p;
 }
 
-nodo *insertar_final(nodo *i) {
-	nodo *v,*l;
-	int dec,j;
-	l=i;
-	v=creaNodo();
-	printf("\nIngrese: "); 
-	j=scanf("%d",&dec);
-	fflush(stdin);
-	if(j==1){
-		while(l->liga!=NULL){
-			l=l->liga;
-		}
-		v->num=dec;
-		v->liga=NULL;
-		l->liga=v;
-	}
-	printf("\n\t*****Ingresando el nuevo dato al final...*****\n")
-	;return i;
-}
-
-nodo *insertar_despues_x(nodo *i)
+nodo *insertar_final(nodo *p,int x) 
 {
-	nodo *v,*l;
-	int band=1,j,dato,x;
-	v=i;
-	printf("\nIngrese el numero de referencia: ");
-	scanf("%d", &x);
-	printf("\nIngrese el numero: ");
-	j=scanf("%d", &dato);
-	if(j==1)
+	nodo *q,*l;
+	l=p;
+	q=creaNodo();
+	while(l->liga!=NULL)
 	{
-		while((v->num!=x)and(band==1)){
-			if(v->liga!=NULL){
-				v=v->liga;
-			}
-			else{
-				band=0;
-			}
-		}
-		if(band==1){
-			l=creaNodo();
-			l->num=dato;
-			l->liga=v->liga;
-			v->liga=l;
-		}
-		else{
-			printf("\ndado com referencia es nulo");
-		}
+		l=l->liga;
 	}
-	return i;	
+	q->num=x;
+	q->liga=NULL;
+	l->liga=q;
+	printf("\n\t*****Ingresando el nuevo dato al final...*****\n");
+	return p;
 }
 
-nodo *insertar_antes_x(nodo *i)
+nodo *insertar_despues_x(nodo *p, int x, int ref)
 {
-	nodo *v,*l,*k;
-	int band=1,j,dato,x;
-	v=i;
-	printf("\n\n\nIngrese el dato de referencia: ");
-	scanf("%d",&x);
-	printf("Ingrese el numero: ");
-	j=scanf("%d",&dato);
-	if(j==1)
+	nodo *q,*l;
+	int band=1;
+	q=p;
+	while((q->num!=ref)and(band==1))
 	{
-		while((v->num!=x)&&(band==1)){
-			if(v->liga!=NULL){
-				l=v;
-				v=v->liga;
-			}
-			else{
-				band=0;
-			}	
-		}
-		if(band==1){
-			k=creaNodo();
-			k->num=dato;
-			if(i==v){
-				k->liga=i;
-				i=k;
-			}
-			else{
-				l->liga=k;
-				k->liga=v;
-			}
+		if(q->liga!=NULL)
+		{
+			q=q->liga;
 		}
 		else
-			printf("El nodo dado no se encuentra");
+		{
+			band=0;
+		}
 	}
-	return i;
+	if(band==1)
+	{
+		l=creaNodo();
+		l->num=x;
+		l->liga=q->liga;
+		q->liga=l;
+	}
+	else
+	{
+		printf("\ndado como referencia es nulo\n");
+	}
+	
+	return p;	
 }
 
-nodo *elmininar_x(nodo *i) {
-	nodo *v,*l;	
-	int j,num;
+nodo *insertar_antes_x(nodo *p,int x,int ref)
+{
+	nodo *q,*l,*k;
+	int band=1;
+	q=p;
+	while((q->num!=ref)&&(band==1))
+	{
+		if(q->liga!=NULL)
+		{
+			l=q;
+			q=q->liga;
+		}
+		else
+		{
+			band=0;
+		}	
+	}
+	if(band==1)
+	{
+		k=creaNodo();
+		k->num=x;
+		if(p==q)
+		{
+			k->liga=p;
+			p=k;
+		}
+		else
+		{
+			l->liga=k;
+			k->liga=q;
+		}
+	}
+	else
+		printf("El nodo dado no se encuentra");
+	
+	return p;
+}
+
+nodo *elmininar_x(nodo *p, int x)
+{
+	nodo *q,*l;	
 	int band =1;
-	v=i;
-	printf("\n\nIngrese el dato que va a eliminar ");
-	j=scanf("%d",&num);
-	fflush(stdin);
-	if(j==1){
-		while((v->num!=num)&&(band == 1))
+	q=p;
+	while((q->num!=x)&&(band == 1))
+	{
+		if(q->liga!=NULL)
 		{
-			if(v->liga!=NULL){
-				l=v;
-				v=v->liga;
-			}
-			else
-				band=0;	
-		}
-		if(band==0)
-			printf("\n\nEl dato %d no se encuentra para eliminar",num);
-		else{
-			if(i==v){
-				i=v->liga;
-			}
-			else{
-				l->liga=v->liga;
-				printf("\n\t*****Actualizando lista enlazada...*****\n");
-			}
-		}
-		return(i);
-		free(v);				
-	}
-}
-
-nodo *eliminar_primero(nodo *i) {
-	nodo *v,*l;
-	v=i;
-	printf("\n\t*****Elminando el primer nodo...*****\n");
-	i=v->liga;
-	free(v);
-	return(i);
-
-}
-
-nodo *eliminar_despues_x(nodo *i) {
-	nodo *v,*l,*t;
-	int band=1,x,j;
-	v=i;
-	printf("Ingrese el numero de referencia: ");
-	j=scanf("%d", &x);
-	if(j==1){
-		while((v->num!=x)&&(band=1))
-		{
-			if(v->liga!=NULL){
-				l=v;
-				v=v->liga;
-			}
-			else
-			{
-				band=0;
-			}
-		}
-		if(band==0){
-			printf("No existe numero despues...");
+			l=q;
+			q=q->liga;
 		}
 		else
-		{					
-			t=v;
-			v=v->liga;
-			if(t->liga!=NULL)
-			{
-				t->liga=v->liga;
-				v->liga=t;
-			}
-			else
-			{
-				printf("\nNo hay numero despues de la referencia\n");
-			}
-		}
-		free (v);
+			band=0;	
 	}
-	return i;	
+	if(band==0)
+		printf("\n\nEl dato %d no se encuentra para eliminar\n",x);
+	else
+	{
+		if(p==q)
+			p=q->liga;
+		else
+		{
+			l->liga=q->liga;
+			printf("\n\t*****Actualizando lista enlazada...*****\n");
+		}
+	}
+	free(q);
+	return(p);
+					
 }
 
-nodo *eliminar_ultimo(nodo *i) {
-	nodo *v,*l;
-	v=i;
-	printf("\n\n\t*****Elminando ultimo nodo...*****\n\n");
-    if(i->liga==NULL) 
-        i=NULL;
-    else{
-    	while(v->liga!=NULL){
-		l=v;
-		v=v->liga;
+nodo *eliminar_primero(nodo *p)
+{
+	nodo *q,*l;
+	q=p;
+	printf("\n\t*****Elminando el primer nodo...*****\n");
+	p=q->liga;
+	free(q);
+	return(p);
+
+}
+
+nodo *eliminar_despues_x(nodo *p, int ref) 
+{
+	nodo *q,*l,*t;
+	int band=1;
+	q=p;
+	while((q->num !=ref)&&(band==1))
+	{
+		if(q->liga!=NULL)
+		{
+			l=q;
+			q=q->liga;
+		}
+		else
+		{
+			band=0;
+			break;
+		}
+	}
+	if(band==0)
+		printf("No existe numero despues...");
+	else
+	{					
+		t=q;
+		q=q->liga;
+		if(t->liga!=NULL)
+		{
+			t->liga=q->liga;
+			q->liga=t;
+			free (q);
+		}
+		else
+		{
+			printf("\nNo hay numero despues de la referencia\n");
+			
+		}
+		
+	}
+	return p;
+}
+
+nodo *eliminar_ultimo(nodo *p)
+{
+	nodo *q,*l;
+	q=p;
+	printf("\n\n\t*****Eliminado el ultimo nodo...*****\n\n");
+	fflush(stdin);
+    if(p->liga==NULL) 
+        p=NULL;
+    else
+	{
+    	while(q->liga!=NULL)
+		{
+			l=q;
+			q=q->liga;
 		}
 		l->liga=NULL;
 	}
-	free(v);
-	return(i);
+	free(q);
+	return(p);
 }
 
-nodo *eliminar_antes_x(nodo *i) {
-	nodo *v,*l,*a;
-	int band=1,x,j;
-	printf("\nIngrese el numero de referencia: ");
-	j=scanf("%d", &x);
-	if(j==1){
-		if(i->num==x){
-			printf("No existe");
+nodo *eliminar_antes_x(nodo *p, int ref)
+{
+	nodo *q,*l,*a;
+	int band=1;
+		if(p->num==ref)
+		{
+			printf("\nNo hay número antes de la referencia\n");
 		}
-		else{
-			v=i;
-			l=i;
-			while((v->num!=x)and(band=1)){
-				if(v->liga!=NULL){
+		else
+		{
+			q=p;
+			l=p;
+			while((q->num!=ref)and(band==1))
+			{
+				if(q->liga!=NULL
+				){
 					a=l;
-					l=v;
-					v=v->liga;
+					l=q;
+					q=q->liga;
 				}
-				else{
+				else
 					band=0;
-				}
 			}
 			if(band==0)
 			{
@@ -585,72 +966,142 @@ nodo *eliminar_antes_x(nodo *i) {
 			}
 			else
 			{
-				if(i->liga==v){
-					i=v;
-				}
+				if(p->liga==q)
+					p=q;
 				else
-				{
-					a->liga=v;
-				}
+					a->liga=q;
 				free(l);
 			}
 		}
-	}
-	return i;	
+	return p;
 }
 
-nodo *busqueda_recursiva(nodo *i,int num) {
-	if(i!=NULL){
+nodo *busqueda_recursiva(nodo *p,int num) 
+{
+	if(p!=NULL)
+	{
 	
-		if(i->num==num)
-			printf("Se encuentra en la lista");
+		if(p->num==num)
+			printf("\nEl número %d Si esta en la lista\n\n",num);
 		else 
-			busqueda_recursiva(i->liga,num);
+			busqueda_recursiva(p->liga,num);
 	}
 	else	
-		printf("No se encuentra"); 
+		printf("\nEl número %d NO esta en la lista\n\n", num); 
 			
-	return(i);
+	return(p);
 }
 
-nodo *busqueda_ordenada(nodo *i) {
-	nodo *v;	
-	int j,num;
-	v=i;
-	printf("\n\nIngrese el dato que va a buscar: ");
-	j=scanf("%d",&num);
-	fflush(stdin);
-	if(j==1){
-		while((v!=NULL)&&(v->num != num))
-		{
-			v=v->liga;
-		}
-		if((v==NULL) or (v->num<num)){
-			printf("\nEl dato que ingreso no esta en esta lista");
-		}
-		else
-			printf("\nEl dato que ingreso si esta en la lista");
+nodo *busqueda_ordenada(nodo *p, int x) 
+{
+	nodo *q;	
+	q=p;
+
+	while((q!=NULL)&&(q->num != x))
+	{
+		q=q->liga;
 	}
-	return(i);
+	if((q==NULL) or (q->num<x))
+	{
+		printf("\nEl número %d NO esta en la lista\n\n",x);
+	}
+	else
+		printf("\nEl número %d SI esta en la lista\n\n",x);
+	return(p);
 }
 
-nodo *busqueda_desordenada(nodo *i) {
-	nodo *v;	
-	int j,num;
-	v=i;
-	printf("\n\nIngrese el dato que va a buscar: ");
-	j=scanf("%d",&num);
-	fflush(stdin);
-	if(j==1){
-		while((v!=NULL)&&(v->num != num))
-		{
-			v=v->liga;
-		}
-		if(v==NULL){
-			printf("\nEl dato que ingreso no esta en esta lista");
-		}
-		else
-			printf("\nEl dato que ingreso si esta en la lista");
+nodo *busqueda_desordenada(nodo *p, int x) 
+{
+	nodo *q;	
+	q=p;
+	while((q!=NULL)&&(q->num != x))
+	{
+		q=q->liga;
 	}
-	return(i);
+	if(q==NULL)
+	{
+		printf("\nEl número %d NO esta en la lista\n\n", x);
+	}
+	else
+		printf("\nEl número %d SI esta en la lista\n\n", x);
+	return(p);
+}
+
+
+void guardarlista(nodo *p)
+{
+	nodo *q =p;
+	char archivo[20];
+	FILE *fp;
+	
+	printf("Introduzca el nombre del archivo: ");
+	scanf("%s",archivo);
+	fflush(stdin);
+	if ( (fp = fopen(archivo,"wb")) == NULL )
+	{
+		printf("\n No se puede abrir el archivo: %s",archivo);
+		exit(1);
+	}
+	 
+	q= p;
+	while ( q != NULL)
+	{
+		printf("\n Guardando la lista... \n");
+	 	fwrite(q, sizeof(nodo),1,fp);
+	 	q = q->liga;
+	}
+	fclose(fp);
+}
+
+nodo *cargarlista(nodo *p)
+{
+	nodo *q, *l;
+	char archivo[20];
+	
+	int z, op, e;
+	FILE *fp;
+	
+	printf("Introduzca el nombre del archivo que desea leer: ");
+	scanf("%s",archivo);
+	fflush(stdin);
+	if ( (fp = fopen(archivo,"rb")) == NULL )
+	{
+	 	printf("\n No existe el archivo: %s",archivo);
+	 	exit(1);
+	    e= 1;
+	}
+	 
+	if ( e != 1)
+	{
+	 	
+	 	printf("\n La lista actual se elimina para cargar la del archivo");
+	 	printf("\nDesea continuar presione el numero uno 1: ");
+	 	scanf("%d",&op);
+	 	fflush(stdin);
+	 	
+	 	if ( op == 1 )
+	 	{
+	 		while( p != NULL )
+	 		{
+	 			q=p;
+	 			p=p->liga;
+	 			free(q);
+			}	 
+			printf("\n Cargando la lista . . . ");
+			p = creaNodo();
+			q = p;	 
+			while ( ! feof(fp))
+			{
+		 		if ( 1 != fread(q,sizeof(nodo),1,fp))	
+				break;
+				q->liga = creaNodo();
+				l = q;
+				q = q->liga;
+			}	 
+			l->liga=NULL;
+			free(q);
+			fclose(fp);	 
+		}
+	}
+	return(p);
 }

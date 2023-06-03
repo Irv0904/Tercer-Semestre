@@ -15,17 +15,19 @@ nodo *creaNodo();
 void recursivo (nodo *i);
 nodo *nodoFinal (nodo *i);
 //void iteractivo(nodo *i);
-//nodo *comienzo();
+nodo *comienzo();
 nodo *liberiaMemoria(nodo *i);
 nodo *busqueda_ordenada(nodo *i);
+
 int main(){
 	int num;
 	nodo *i=NULL;
-  	//i= comienzo();
+  	i= comienzo();
 	//iteractivo (i);
-	i=nodoFinal(i);
+	//i=nodoFinal(i);
 	recursivo(i);
 	i=busqueda_ordenada(i);
+	//recursivo(i);
 	i=liberiaMemoria(i);
 
 }
@@ -90,7 +92,7 @@ nodo *liberiaMemoria(nodo *i){
 	return(i);
 }
 
-/*nodo *comienzo(){
+nodo *comienzo(){
 	int num,j;
 	nodo *i, *v;
 	i = creaNodo();
@@ -124,7 +126,7 @@ nodo *liberiaMemoria(nodo *i){
 	}
 	v=i	;
 	return i;	
-}*/
+}
 
 nodo *nodoFinal (nodo *i){
 	int j,num;
@@ -171,16 +173,15 @@ nodo *busqueda_ordenada(nodo *i) {
 	j=scanf("%d",&num);
 	fflush(stdin);
 	if(j==1){
-		while((v!=NULL)&&(v->num != num))
+		while((v!=NULL)&&(v->num > num))
 		{
 			v=v->liga;
 		}
-		if((v==NULL) or (v->num<num)){
-			printf("\nEl dato que ingreso no esta en esta lista");
+		if((v==NULL) || (v->num>num)){
+			printf("\nEl dato que ingreso no esta en esta lista\n");
 		}
 		else
-			printf("\nEl dato que ingreso si esta en la lista");
+			printf("\nEl dato que ingreso si esta en la lista\n");
 	}
 	return(i);
 }
-
