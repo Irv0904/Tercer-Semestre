@@ -1,5 +1,3 @@
-//VA PARA  EL MENU
-
 #include<stdio.h>
 #include<stdlib.h>
 

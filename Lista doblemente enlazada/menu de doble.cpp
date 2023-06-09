@@ -1,11 +1,10 @@
 /*
 	Name: Menu de listas doble
-	Copyright: 2023
+	Nota: 100
 	Author: Irving Jhon Villarreal Lasso
 	Date: 30/05/23 14:13
 	Description: Se realizo un menu de todas la lista simple
 */
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<locale.h>
@@ -640,7 +639,7 @@ void recorreiterativoizq(nodo *p)
 		printf("\n\n\t\t La lista esta vacia");
 	return;
 	
-	}
+}
 
 nodo *liberamemoriadb(nodo *p)
 {
@@ -864,7 +863,7 @@ nodo *eliminar_despues_x(nodo *p,nodo *f, int x)
 		{
 			if(f==q)
 			{
-				printf("NO hay nodo para eliminar");
+				printf("NO hay numero, despues %d",f->num);
 			}
 			else
 			{
@@ -891,7 +890,6 @@ nodo *eliminar_despues_x(nodo *p,nodo *f, int x)
 	}
 	else
 		printf("\nEl elmento no se encuentra\n");
-	
 	return p;
 }
 

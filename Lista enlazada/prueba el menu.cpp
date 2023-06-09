@@ -4,7 +4,7 @@
 	Author: Irving Jhon Villarreal Lasso
 	Date: 23/05/23 14:24
 	Description: Este codigo se usa para hacer un menu de diferentes partes de listas enlazadas
-	Calificacion: 
+	Calificacion:100 
 */
 
 //23/05/23 14:24
