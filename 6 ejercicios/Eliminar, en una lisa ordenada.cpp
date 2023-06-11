@@ -1,9 +1,4 @@
-/*	
-	Nombre: Lista Simple con Inserta Despues con Lista Ordenada y Verificacion de Lista
-	Autor: Irving Jhon Villarreal
-	Fecha de entrega: 13/06/2023
-	Nota:
-*/
+//PASO LA PRUEBA
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -18,27 +13,27 @@ typedef struct cnodo nodo;
 
 void *creaMemoria(int n);
 nodo *creaNodo();
-void recursivo(nodo *i);
 nodo *nodoFinal (nodo *i);
+void recursivo (nodo *i);
 int  verifica_orden_ascendente(nodo * i);
 void ordenarLista(nodo*i);
 nodo *liberiaMemoria(nodo *i);
-nodo *insertar(nodo *i);
+nodo *elmininar_x(nodo *i, int x);
 int verificacion(nodo *i, int num);
 
 int main(){
 	int num;
 	nodo *i=NULL;
-	i=nodoFinal(i);
+   i=nodoFinal(i);
 	recursivo(i);
-	verificacion(i,num);
+   verificacion(i,num);
 	return(0);
-
 }
 
 int verificacion(nodo *i, int num)
 {
-	int ingr;
+	int ingr,x,j;
+	//nodo *i=,xNULL;
 	int quiere;
 	num = verifica_orden_ascendente(i);
 	if(num==1)
@@ -49,9 +44,13 @@ int verificacion(nodo *i, int num)
 		fflush(stdin);
 		if(quiere == 1)
 		{
+         system("CLS");
 			ordenarLista(i);
 			recursivo (i);
-			i=insertar(i);
+         printf("\n\nIngrese el dato que va a eliminar ");
+         j=scanf("%d",&x);
+         fflush(stdin);
+			i=elmininar_x(i,x);
 			recursivo (i);
 			printf("Dese ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
 			scanf("%d", &ingr);
@@ -60,7 +59,10 @@ int verificacion(nodo *i, int num)
 			{
 				system("CLS");
 				recursivo (i);
-				i=insertar(i);
+            printf("\n\nIngrese el dato que va a eliminar ");
+            j=scanf("%d",&x);
+            fflush(stdin);
+				i=elmininar_x(i,x);
 				recursivo (i);
 				printf("Desea ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
 				scanf("%d", &ingr);
@@ -75,8 +77,11 @@ int verificacion(nodo *i, int num)
 	}
 	else
 	{
-		printf("\n\t\t\tSI esta ordenada\n\t\t\tSigamos...");
-		i=insertar(i);
+		printf("SI esta ordenada\nSigamos...");
+      printf("\n\nIngrese el dato que va a eliminar ");
+      j=scanf("%d",&x);
+      fflush(stdin);
+		i=elmininar_x(i,x);
 		recursivo (i);
 		printf("Desea ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
 		scanf("%d", &ingr);
@@ -85,7 +90,10 @@ int verificacion(nodo *i, int num)
 		{
 			system("CLS");
 			recursivo (i);
-			i=insertar(i);
+         printf("\n\nIngrese el dato que va a eliminar ");
+         j=scanf("%d",&x);
+         fflush(stdin);
+			i=elmininar_x(i,x);
 			recursivo (i);
 			printf("Dese ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
 			scanf("%d", &ingr);
@@ -178,6 +186,37 @@ nodo *nodoFinal (nodo *i){
 	return i;
 }
 
+nodo *elmininar_x(nodo *i, int x)
+{
+	nodo *q,*l;	
+	int band =1;
+	q=i;
+	while((q->num!=x)&&(band == 1))
+	{
+		if(q->liga!=NULL)
+		{
+			l=q;
+			q=q->liga;
+		}
+		else
+			band=0;	
+	}
+	if(band==0)
+		printf("\n\nEl dato %d no se encuentra para eliminar\n",x);
+	else
+	{
+		if(i==q)
+			i=q->liga;
+		else
+		{
+			l->liga=q->liga;
+			printf("\n\t*****Actualizando lista enlazada...*****\n");
+		}
+	}
+	free(q);
+	return(i);
+}
+
 int verifica_orden_ascendente(nodo *i)
 {
 	nodo *q,*t;
@@ -190,12 +229,12 @@ int verifica_orden_ascendente(nodo *i)
 		
 		do{
 			if( q->num <= t->num)
-		{
-			t = t->liga;
+			{
+				t = t->liga;
 			}
 			else return (1);
 		}while (t != NULL);
-			q = q->liga;   
+		q = q->liga;   
 		}
 		
 	return (0);	
@@ -214,70 +253,15 @@ void ordenarLista(nodo* i) {
 		v = i;
 		
 		while (v->liga != l) {
-			if (v->num > v->liga->num) {
+            if (v->num > v->liga->num) {
 					int temp = v->num;
 					v->num = v->liga->num;
 					v->liga->num = temp;
 					band = 1;
-			}
-			v = v->liga;
+            }
+            v = v->liga;
 		}
 		
 		l = v;
 	} while (band);
-}
-
-nodo *insertar(nodo *i) {
-	nodo *v,*l,*k;	
-	int j,dato;
-	int band =1;
-	v=i;
-	printf("\n\nIngrese el dato que va a insertar ");
-	j=scanf("%d",&dato);
-	fflush(stdin);
-	if(j==1){
-		while((v->num<dato)&&(band == 1))
-		{
-			if(v->liga!=NULL){
-				l=v;
-				v=v->liga;
-			}
-			else{
-				band=0;
-				break;
-				}
-		}
-		if(band==1)
-		{
-			if((l->num<dato)&&(v->num>dato)&&(v!=i))
-			{
-				k=creaNodo();
-				k->num=dato;
-				k->liga=v;
-				l->liga=k;
-			}
-			else{
-				if(v->num>dato)
-				{
-					k=creaNodo();
-					k->num=dato;
-					k->liga=v;
-					v=k;
-					i=v;
-				}
-				else
-					printf("\n\n\t\t\tYa existe ese nuemro\n\n");
-			}
-		}
-		else{
-			if((v->num < dato) and (v->liga == NULL))
-			{
-				k=creaNodo();
-				k->num=dato;
-				k->liga=NULL;
-				v->liga=k;
-			}
-		}
-		return(i);				
-	}
 }

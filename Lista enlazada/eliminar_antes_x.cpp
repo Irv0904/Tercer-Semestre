@@ -17,6 +17,7 @@ nodo *nodoFinal (nodo *i);
 void recursivo (nodo *i);
 nodo *liberiaMemoria(nodo *i);
 nodo *eliminar_antes_x(nodo *i);
+
 int main(){
 	int num;
 	nodo *i=NULL;
@@ -29,7 +30,6 @@ int main(){
 	printf("\n");
 	recursivo(i);
 	i=liberiaMemoria(i);
-
 }
 
 void *creaMemoria(int n){

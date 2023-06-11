@@ -1,5 +1,9 @@
-//PASO LA PRUEBA
-
+/*	
+	Nombre: Lista Simple con Inserta Despues con Lista Ordenada y Verificacion de Lista
+	Autor: Irving Jhon Villarreal
+	Fecha de entrega: 13/06/2023
+	Nota:
+*/
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -14,25 +18,81 @@ void *creaMemoria(int n);
 nodo *creaNodo();
 void iteractivo(nodo *i);
 nodo *comienzo();
-//nodo *nodoFinal (nodo *i);
+int  verifica_orden_ascendente(nodo * i);
+void ordenarLista(nodo*i);
+int verificacion(nodo *i, int num);
+nodo *nodoFinal (nodo *i);
 //void recursivo (nodo *i);
 nodo *liberiaMemoria(nodo *i);
-
 nodo *insertar_antes_x(nodo *i);
-int main(){
-	//int num;
-	nodo *i=NULL;
-  	i= comienzo();
-	iteractivo (i);
-	//i=nodoFinal(i);
-	//recursivo(i);
-	//ordenarLista_a(i);
-	//iteractivo (i);
-	i=insertar_antes_x(i);
-	iteractivo (i);
-	//iteractivo (i);
-	i=liberiaMemoria(i);
 
+int main(){
+	int num;
+	nodo *i=NULL;
+	i=comienzo();
+	iteractivo (i);
+	verificacion(i,num);
+	return 0;
+}
+
+int verificacion(nodo *i, int num)
+{
+	int ingr;
+	int quiere;
+	num = verifica_orden_ascendente(i);
+	if(num==1)
+	{
+		printf("\n\n\t\tNO esta ordenada\n\n");
+		printf("\n\tQuiere ordena la Lista e ingresar datos\n\t\t1-Si o 2-NO\n\t\tRespuesta:");
+		scanf("%d", & quiere);
+		fflush(stdin);
+		if(quiere == 1)
+		{
+			ordenarLista(i);
+			iteractivo (i);
+			i=insertar_antes_x(i);
+			iteractivo (i);
+			printf("Dese ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
+			scanf("%d", &ingr);
+			fflush(stdin);
+			while(ingr != 0)
+			{
+				system("CLS");
+				iteractivo (i);
+				i=insertar_antes_x(i);
+				iteractivo (i);
+				printf("Desea ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
+				scanf("%d", &ingr);
+				fflush(stdin);
+			}
+			i=liberiaMemoria(i);
+		}
+		else
+		{
+			i=liberiaMemoria(i);
+		}
+	}
+	else
+	{
+		printf("\n\t\t\tSI esta ordenada\n\t\t\tSigamos...");
+		i=insertar_antes_x(i);
+		iteractivo (i);
+		printf("Desea ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
+		scanf("%d", &ingr);
+		fflush(stdin);
+		while(ingr != 0)
+		{
+			system("CLS");
+			iteractivo (i);
+			i=insertar_antes_x(i);
+			iteractivo (i);
+			printf("Dese ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
+			scanf("%d", &ingr);
+			fflush(stdin);
+		}
+		i=liberiaMemoria(i);
+	}
+	return 0;
 }
 
 void *creaMemoria(int n){
@@ -64,21 +124,6 @@ void iteractivo(nodo *i){
 	return;
 }
 
-/*void recursivo (nodo *i){
-	if(i != NULL){
-		printf("%5d->",i->num);
-		if(i->liga!=NULL){
-			recursivo (i->liga);
-		}
-		else{
-			printf("%s",i->liga);
-		}
-	}
-	else{
-		printf("\n*****Lista Vacia...*****\n");
-	}
-}*/
-
 nodo *liberiaMemoria(nodo *i){
 	nodo *v=NULL;
 	if(i!=NULL){
@@ -97,7 +142,7 @@ nodo *liberiaMemoria(nodo *i){
 
 nodo *comienzo(){
 	int num,j;
-	nodo *i, *v,*a;
+	nodo *i, *v;
 	i = creaNodo();
 	printf("\nIngrese un digito: ");
 	j=scanf("%d",&num);
@@ -105,7 +150,6 @@ nodo *comienzo(){
 	if(j == 1){
 		i ->num = num;
 		i -> liga=NULL;	
-		
 		do{
 		v= creaNodo();
 		printf("Ingrese dato: ");
@@ -123,7 +167,8 @@ nodo *comienzo(){
 		}while(j ==1);
 		printf("\n*****creando Listas enlazada...*****\n");
 	}
-	else{
+	else
+	{
 		free(i);
 		return (NULL);
 	}
@@ -131,42 +176,50 @@ nodo *comienzo(){
 	return i;	
 }
 
-/*nodo *nodoFinal (nodo *i){
-	int j,num;
-	nodo *l,*v;
-	i=creaNodo();
-	printf("\nIngrese un digito: ");
-	j=scanf("%d",&num);
-	fflush(stdin);
-	if(j==1){
-		i->num=num;
-		i->liga=NULL;
-		l=i;
-		do{
-			v=creaNodo();
-			printf("Ingrese digito:");
-			j=scanf("%d",&num);
-			fflush(stdin);
-			if(j==1){
-				v->num=num;
-				v->liga=NULL;
-				l->liga=v;
-				l=v;
+void ordenarLista(nodo* i)
+{
+	int band;
+	nodo* v;
+	nodo* l = NULL;
+	if (i == NULL)
+		return;
+	do
+	{
+		band = 0;
+		v = i;
+		while (v->liga != l) {
+			if (v->num < v->liga->num)
+			{
+				int temp = v->num;
+				v->num = v->liga->num;
+				v->liga->num = temp;
+				band = 1;
 			}
-			else{
-				free(v);
-				break;
+			v = v->liga;
+		}
+		l = v;
+	}while (band);
+}
+
+int verifica_orden_ascendente(nodo *i)
+{
+	nodo *q, *t;
+	q= i;
+	while ( q->liga != NULL)
+	{
+		t=q->liga;
+		do
+		{
+			if( q->num >= t->num)
+			{   
+				q=t;
+				t = t->liga;
 			}
-		}while(j==1);
-		printf("\n*****creando Listas enlazada...*****\n\n");
-	
-	}
-	else{
-		free(i);
-		return(NULL);
-	}
-	return i;
-}*/
+			else return (1);
+		}while (t != NULL);		  
+	}// fin deldo while
+	return (0);
+}
 
 nodo *insertar_antes_x(nodo *i)
 {
@@ -184,29 +237,37 @@ nodo *insertar_antes_x(nodo *i)
 				l=v;
 				v=v->liga;
 			}
-			else
+			else{
 				band=0;
+				break;
+				}
 		}
+		printf("%d", band);
 		if(band==1){
-			if((l->num>dato)&&(v->num<dato)){
+			if(i==v)
+			{
 				k=creaNodo();
 				k->num=dato;
-				if(i==v){
-					k->liga=i;
-					i=k;
-				}
-				else{
-					l->liga=k;
-					k->liga=v;
-				}
+				printf("1");
+				k->liga=i;
+				i=k;
 			}
 			else
 			{
-				printf("\n\n***\tEl numero que ingreso es invalido\n\n");
+				if((l->num>dato)&&(v->num<dato))
+				{
+					printf("1");
+					k=creaNodo();
+					k->num=dato;
+					l->liga=k;
+					k->liga=v;
+				}
+				else
+					printf("\n\n***\tEl numero que ingreso es invalido\n\n");
 			}
 		}
-		else
-			printf("El numero dado no se encuentra");
 	}
+	else
+		printf("El numero dado no se encuentra");
 	return i;
 }

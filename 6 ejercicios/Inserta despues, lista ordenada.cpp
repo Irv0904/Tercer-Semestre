@@ -1,4 +1,5 @@
-/*	Nombre: Lista Simple con Inserta Despues con Lista Ordenada y Verificacion de Lista
+/*	
+	Nombre: Lista Simple con Inserta Despues con Lista Ordenada y Verificacion de Lista
 	Autor: Irving Jhon Villarreal
 	Hora de entrega: 13/06/2023
 	Nota:
@@ -27,7 +28,7 @@ int verificacion(nodo *i, int num);
 int main(){
 	int num;
 	nodo *i=NULL;
-  	i=nodoFinal(i);
+	i=nodoFinal(i);
 	iteractivo (i);
 	verificacion(i,num);
 	return(0);
@@ -190,50 +191,47 @@ int verifica_orden_ascendente(nodo *i)
 	q= i;
 		
 	while ( q->liga != NULL)
-	 {
+	{
 			
 		t=q->liga;
 		
 		do{
-			
 			if( q->num <= t->num)
-		      {
-		      	t = t->liga;
-			 }
+			{
+				t = t->liga;
+			}
 			else return (1);
-			  
-		   }while (t != NULL);
-		  
-		  q = q->liga;   
+		}while (t != NULL);
+		q = q->liga;   
 		}
 		
 	return (0);	
 }
 
 void ordenarLista(nodo* i) {
-    int band;
-    nodo* v;
-    nodo* l = NULL;
-    
-    if (i == NULL)
-        return;
-    
-    do {
-        band = 0;
-        v = i;
-        
-        while (v->liga != l) {
+	int band;
+	nodo* v;
+	nodo* l = NULL;
+	
+	if (i == NULL)
+		return;
+	
+	do {
+		band = 0;
+		v = i;
+		
+		while (v->liga != l) {
             if (v->num > v->liga->num) {
-                int temp = v->num;
-                v->num = v->liga->num;
-                v->liga->num = temp;
-                band = 1;
+					int temp = v->num;
+					v->num = v->liga->num;
+					v->liga->num = temp;
+					band = 1;
             }
             v = v->liga;
-        }
-        
-        l = v;
-    } while (band);
+		}
+		
+		l = v;
+	} while (band);
 }
 
 nodo *insertar_despues_x(nodo *i)
@@ -265,7 +263,6 @@ nodo *insertar_despues_x(nodo *i)
 			}
 			else
 			{
-
 				printf("\n\n***\tEl numero que ingreso es invalido\n\n");
 			}
 		}

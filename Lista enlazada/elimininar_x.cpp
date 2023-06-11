@@ -198,4 +198,3 @@ nodo *elmininar_x(nodo *i) {
 		return(i);				
 	}
 }
-
