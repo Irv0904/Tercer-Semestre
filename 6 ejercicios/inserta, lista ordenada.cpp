@@ -1,4 +1,3 @@
-//PASO LA PRUEBA
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -13,22 +12,82 @@ typedef struct cnodo nodo;
 
 void *creaMemoria(int n);
 nodo *creaNodo();
+void recursivo(nodo *i);
 nodo *nodoFinal (nodo *i);
-void recursivo (nodo *i);
+int  verifica_orden_ascendente(nodo * i);
+void ordenarLista(nodo*i);
 nodo *liberiaMemoria(nodo *i);
-nodo *elmininar_x(nodo *i);
+nodo *insertar(nodo *i);
+int verificacion(nodo *i, int num);
+
 int main(){
 	int num;
 	nodo *i=NULL;
   	i=nodoFinal(i);
 	recursivo(i);
-	//i= comienzo();
-	//iteractivo (i);
-	i=elmininar_x(i);
-	//iteractivo (i);
-	recursivo(i);
-	i=liberiaMemoria(i);
+	verificacion(i,num);
+	return(0);
 
+}
+
+int verificacion(nodo *i, int num)
+{
+	int ingr;
+	int quiere;
+	num = verifica_orden_ascendente(i);
+	if(num==1)
+	{
+		printf("\n\n\t\tNO esta ordenada\n\n");
+		printf("\n\tQuiere ordena la Lista e ingresar datos\n\t\t1-Si o 2-NO\n\t\tRespuesta:");
+		scanf("%d", & quiere);
+		fflush(stdin);
+		if(quiere == 1)
+		{
+			ordenarLista(i);
+			recursivo (i);
+			i=insertar(i);
+			recursivo (i);
+			printf("Dese ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
+			scanf("%d", &ingr);
+			fflush(stdin);
+			while(ingr != 0)
+			{
+				system("CLS");
+				recursivo (i);
+				i=insertar(i);
+				recursivo (i);
+				printf("Desea ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
+				scanf("%d", &ingr);
+				fflush(stdin);
+			}
+			i=liberiaMemoria(i);
+		}
+		else
+		{
+			i=liberiaMemoria(i);
+		}
+	}
+	else
+	{
+		printf("\n\t\t\tSI esta ordenada\n\t\t\tSigamos...");
+		i=insertar(i);
+		recursivo (i);
+		printf("Desea ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
+		scanf("%d", &ingr);
+		fflush(stdin);
+		while(ingr != 0)
+		{
+			system("CLS");
+			recursivo (i);
+			i=insertar(i);
+			recursivo (i);
+			printf("Dese ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
+			scanf("%d", &ingr);
+			fflush(stdin);
+		}
+		i=liberiaMemoria(i);
+	}
+	return 0;
 }
 
 void *creaMemoria(int n){
@@ -44,21 +103,6 @@ void *creaMemoria(int n){
 nodo *creaNodo(){
 	return(nodo *)creaMemoria(sizeof(nodo));
 } 
-
-/*void iteractivo(nodo *i){
-	nodo *v;
-	if(i!=NULL){
-		printf("\n");
-		for(v=i;v!=NULL;v=v->liga){
-			printf("%5d->", v->num);
-		}
-		printf("%s", v);
-	printf("\n\n");
-	}
-	else
-		printf("\n*****Lista vacia...*****\n");
-	return;
-}*/
 
 void recursivo (nodo *i){
 	if(i != NULL){
@@ -90,42 +134,6 @@ nodo *liberiaMemoria(nodo *i){
 		printf("\n*****LISTA LIBERADA...*****\n\n");
 	return(i);
 }
-
-/*nodo *comienzo(){
-	int num,j;
-	nodo *i, *v;
-	i = creaNodo();
-	printf("\nIngrese un digito: ");
-	j=scanf("%d",&num);
-	//fflush(stdin);
-	if(j == 1){
-		i ->num = num;
-		i -> liga=NULL;	
-		
-		do{
-		v= creaNodo();
-		printf("Ingrese dato: ");
-		j=scanf("%d", &num);
-		fflush(stdin);
-		if (j == 1){
-			v->num = num;
-			v->liga=i;
-			i=v;
-		}
-		else{
-			free(v);
-			break;
-		}
-		}while(j ==1);
-		printf("\n\t*****creando Listas enlazada...*****\n");
-	}
-	else{
-		free(i);
-		return (NULL);
-	}
-	v=i	;
-	return i;	
-}*/
 
 nodo *nodoFinal (nodo *i){
 	int j,num;
@@ -164,28 +172,82 @@ nodo *nodoFinal (nodo *i){
 	return i;
 }
 
-nodo *elmininar_x(nodo *i) {
+int verifica_orden_ascendente(nodo *i)
+{
+	nodo *q,*t;
+	q= i;
+		
+	while ( q->liga != NULL)
+	 {
+			
+		t=q->liga;
+		
+		do{
+			
+			if( q->num <= t->num)
+		      {
+		      	t = t->liga;
+			 }
+			else return (1);
+			  
+		   }while (t != NULL);
+		  
+		  q = q->liga;   
+		}
+		
+	return (0);	
+}
+
+void ordenarLista(nodo* i) {
+    int band;
+    nodo* v;
+    nodo* l = NULL;
+    
+    if (i == NULL)
+        return;
+    
+    do {
+        band = 0;
+        v = i;
+        
+        while (v->liga != l) {
+            if (v->num > v->liga->num) {
+                int temp = v->num;
+                v->num = v->liga->num;
+                v->liga->num = temp;
+                band = 1;
+            }
+            v = v->liga;
+        }
+        
+        l = v;
+    } while (band);
+}
+
+nodo *insertar(nodo *i) {
 	nodo *v,*l,*k;	
 	int j,dato;
 	int band =1;
 	v=i;
-	printf("\n\nIngrese el dato que va a eliminar ");
+	printf("\n\nIngrese el dato que va a insertar ");
 	j=scanf("%d",&dato);
 	fflush(stdin);
 	if(j==1){
 		while((v->num<dato)&&(band == 1))
 		{
-			
 			if(v->liga!=NULL){
 				l=v;
 				v=v->liga;
 			}
-			else
-				band=0;	
+			else{
+				band=0;
+				break;
+				}
 		}
 		if(band==1)
 		{
-			if((l->num<dato)&&(v->num>dato))
+			printf("4");
+			if((l->num<dato)&&(v->num>dato)&&(v!=i))
 			{
 				k=creaNodo();
 				k->num=dato;
@@ -193,11 +255,27 @@ nodo *elmininar_x(nodo *i) {
 				l->liga=k;
 			}
 			else{
-				printf("\n\n\t\t\tYa existe ese nuemro\n\n");
+				if(v->num>dato)
+				{
+					printf("1");
+					k=creaNodo();
+					k->num=dato;
+					k->liga=v;
+					v=k;
+					i=v;
+				}
+				else
+					printf("\n\n\t\t\tYa existe ese nuemro\n\n");
 			}
 		}
 		else{
-			printf("\nNo se puede\n\n");	
+			if((v->num < dato) and (v->liga == NULL))
+			{
+				k=creaNodo();
+				k->num=dato;
+				k->liga=NULL;
+				v->liga=k;
+			}
 		}
 		return(i);				
 	}

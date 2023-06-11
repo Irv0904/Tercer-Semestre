@@ -7,24 +7,17 @@
 struct cnodo{
 	float coef;
 	float expo;
-	float total;
 	struct cnodo *liga;
 };
 
 typedef struct cnodo nodo;
 
 void *creaMemoria(float n);
-void *creaMemoriaFloat(float w);
-nodo *creaNodofloat();
 nodo *creaNodo();
 nodo *ordenarLista_a(nodo* i); 
-nodo *suma_polinomio(nodo *i);
 void iteractivo(nodo *i);
 nodo *nodoFinal (nodo *i);
-void iteractivoTotal(nodo *i);
 nodo *liberiaMemoria(nodo *i);
-nodo *eliminar_ultimo(nodo *i);
-
 float evaluar (nodo *i, float x);
 
 int main(){
@@ -32,7 +25,8 @@ int main(){
 	nodo *i=NULL;
 	i=nodoFinal(i);
 	iteractivo (i);
-	//i=ordenarLista_a(i);
+	i=ordenarLista_a(i);
+	iteractivo (i);
 	printf("Ingrese el valor de x: ");
 	scanf("%f",&x);
 	fflush(stdin);
@@ -53,20 +47,6 @@ void *creaMemoria(float n){
 	return(i);
 }
 
-nodo *creaNodofloat(){
-	return(nodo *)creaMemoriaFloat(sizeof(nodo));
-} 
-
-void *creaMemoriaFloat(float w){
-	void *i=(float *)malloc(w);
-	if(i==NULL){
-		printf("No hay memoria");
-		getchar();
-		exit(1);
-	}
-	return(i);
-}
-
 nodo *creaNodo(){
 	return(nodo *)creaMemoria(sizeof(nodo));
 } 
@@ -77,22 +57,6 @@ void iteractivo(nodo *i){
 		printf("\n");
 		for(v=i;v!=NULL;v=v->liga){
 			printf("%.1fx^%.0f -> ", v->coef,v->expo);
-		}
-		printf("%s", v);
-	printf("\n\n");
-	}
-	else
-		printf("\n*****Lista vacia...*****\n");
-	return;
-}
-
-void iteractivoTotal(nodo *i)
-{
-	nodo *v;
-	if(i!=NULL){
-		printf("\n");
-		for(v=i;v!=NULL;v=v->liga){
-			printf("%.1f->",v->total);
 		}
 		printf("%s", v);
 	printf("\n\n");
@@ -124,7 +88,7 @@ nodo *nodoFinal (nodo *i){
 	float expo;
 	int j;
 	nodo *l,*v;
-	i=creaNodofloat();
+	i=creaNodo();
 	i=creaNodo();
 	printf("Ingrese un coeficiente: ");
 	j=scanf("%f",&coef);
@@ -137,7 +101,7 @@ nodo *nodoFinal (nodo *i){
 		i->liga=NULL;
 		l=i;
 		do{
-			v=creaNodofloat();
+			v=creaNodo();
 			v=creaNodo();
 			printf("\nIngrese un coeficiente:");
 			j=scanf("%f",&coef);
@@ -165,47 +129,6 @@ nodo *nodoFinal (nodo *i){
 	return i;
 }
 
-
-/*nodo *suma_polinomio(nodo *i)
-{
-	float x;
-	int j;
-	float total, pre;
-	float acumula, acumula1;
-	nodo *l=NULL;
-	l=i;
-	printf("Ingrese el valor de x: ");
-	j=scanf("%f",&x);
-	fflush(stdin);
-	if(j==1)
-	{
-		total=pow(x,l->expo);
-		pre=l->coef*total;
-		acumula=acumula+pre;
-		while(l->liga!=NULL)
-		{
-			if(l->expo==0)
-			{
-				pre=l->coef*x;
-			}
-			else
-			{
-				l=l->liga;
-				total=pow(x,l->expo);
-				pre=l->coef*total;
-				acumula=acumula+pre;	
-			}
-		}
-		l->total=acumula+pre;
-	}
-	else{
-		free(l);
-		return(NULL);
-	}
-	i=l;
-	return i;
-}*/
-
 float evaluar(nodo *i, float x)
 {
 	nodo *q=i;
@@ -215,50 +138,17 @@ float evaluar(nodo *i, float x)
 		res=q->coef*pow(x,q->expo);
 		res += evaluar(q->liga,x);
 	}
-	
 	return res;
 }
 
-
-/*void ordenarLista(nodo* i) {
-    int band;
-    nodo* v;
-    nodo* l = NULL;
-    
-    if (i == NULL)
-        return;
-    
-    do {
-        band = 0;
-        v = i;
-        
-        while (v->liga != l) {
-            if (v->num > v->liga->num) {
-                int temp = v->num;
-                v->num = v->liga->num;
-                v->liga->num = temp;
-                band = 1;
-            }
-            v = v->liga;
-        }
-        
-        l = v;
-    } while (band);
-}*/
-
-/*void ordenarLista_a(nodo* i) 
+nodo *ordenarLista_a(nodo* i) 
 {
     int band;
     nodo* v;
-    nodo* l = NULL;
-    
-    if (i == NULL)
-        return;
-    
+    nodo* l = NULL; 
     do {
         band = 0;
         v = i;
-        
         while (v->liga != l) {
             if (v->expo < v->liga->expo) {
                 int temp = v->expo;
@@ -272,7 +162,7 @@ float evaluar(nodo *i, float x)
             }
             v = v->liga;
         }
-        
         l = v;
     } while (band);
-}*/
+	 return i;
+}
