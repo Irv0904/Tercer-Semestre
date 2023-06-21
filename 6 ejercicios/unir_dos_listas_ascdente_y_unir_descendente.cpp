@@ -14,6 +14,7 @@ struct cnodo{
 
 typedef struct cnodo nodo;
 
+
 void *creaMemoria(int n);
 nodo *creaNodo();
 
@@ -21,23 +22,19 @@ nodo *lista_1 (nodo *p);
 void recursivo_1(nodo *p);
 nodo *libera_lista_1(nodo *p);
 
-
 nodo *lista_2 (nodo *f);
 void recursivo_2(nodo *f);
 nodo *libera_lista_2(nodo *f);
 
-
 nodo *lista_3(nodo *p, nodo *f);
-void recursivo_3(nodo *k);
-nodo *libera_lista_3(nodo *k);
-void ordenarLista_3(nodo*k);
-
-
+void recursivo_3(nodo *z);
+nodo *libera_lista_3(nodo *z);
+void ordenarLista(nodo*z);
 int main(){
 	int num;
 	nodo *p=NULL;
    nodo *f=NULL;
-   nodo *k=NULL;
+   nodo *z=NULL;
 
    printf("\t\t\tLista 1:\n");
 	p=lista_1(p);
@@ -47,13 +44,15 @@ int main(){
    f=lista_2(f);
    recursivo_2(f);
 
-   printf("\n\n\t\t\tLista 3 y mezclada:\n");
-   k=lista_3(p,f);
-   recursivo_3(k);
+   printf("\n\n\t\t\tLista 3 y mezclada y ordenada descendente:\n");
+   z=lista_3(p,f);
+   ordenarLista(z);   
+   recursivo_3(z);
 
-	libera_lista_3(k);
+	libera_lista_3(z);
 	libera_lista_2(f);
 	libera_lista_1(p);
+   
 }
 
 void *creaMemoria(int n)
@@ -101,15 +100,15 @@ void recursivo_2 (nodo *f)
 		printf("\n*****Lista Vacia...*****\n");
 }
 
-void recursivo_3 (nodo *k)
+void recursivo_3 (nodo *z)
 {
-	if(k != NULL)
+	if(z != NULL)
    {
-		printf("%5d->",k->num);
-		if(k->liga!=NULL)
-			recursivo_2 (k->liga);
+		printf("%5d->",z->num);
+		if(z->liga!=NULL)
+			recursivo_2 (z->liga);
 		else
-			printf("%s",k->liga);
+			printf("%s",z->liga);
 	}
 	else
 		printf("\n*****Lista Vacia...*****\n");
@@ -155,15 +154,15 @@ nodo *libera_lista_2(nodo *f)
 	return f;
 }
 
-nodo *libera_lista_3(nodo *k)
+nodo *libera_lista_3(nodo *z)
 {
 	nodo *q=NULL;
-	if(k!=NULL)
+	if(z!=NULL)
 	{
-		while(k!=NULL)
+		while(z!=NULL)
 		{
-			q=k;
-			k=k->liga ;
+			q=z;
+			z=z->liga ;
 			q->liga= NULL;
 			free(q);
 		}
@@ -172,7 +171,7 @@ nodo *libera_lista_3(nodo *k)
 	else
 		printf("****NO HAY LISTA PARA LIBERADA...*****\n\n");
 	//free(p);	
-	return k;
+	return z;
 }
 
 nodo *lista_1 (nodo *p)
@@ -261,93 +260,54 @@ nodo *lista_2 (nodo *f)
 	}
 }
 
-nodo *lista_3(nodo *p, nodo *f)
-{
-	nodo *k, *w, *r, *q, *t, *x;
-	x = NULL;
-	k = NULL;
-	q = p;
-	t = f;
-	while ((q != NULL) && (t != NULL))
-	{
-		w = creaNodo();
-		if (q->num < t->num)
-		{
-			w->num = q->num;
-			q = q->liga;
-		}
-		else
-		{
-			w->num = t->num;
-			t = t->liga;
-		}
-		w->liga = NULL;
-		if (k == NULL)
-		{
-			k = w;
-			r = w;
-		}
-		else
-		{
-			r->liga = w;
-			r = w;
-		}
-	}
-	if (q != NULL)
-	{
-		while (q != NULL)
-		{
-			if (q != NULL)
-			{
-					x = creaNodo();
-					x->num = q->num;
-					x->liga = NULL;
-					r->liga = x;
-			}
-			r = x; 
-			q = q->liga; 
-		}
-	}
-	else if (t != NULL)
-	{
-		while (t != NULL)
-		{
-			if (t != NULL)
-			{
-					x = creaNodo();
-					x->num = t->num;
-					x->liga = NULL;
-					r->liga = x;
-			}
-			r = x;
-			t = t->liga;
-		}
-	}
-	return k;
+nodo* lista_3(nodo* p, nodo* f) {
+   nodo* r = NULL;
+   nodo* z = NULL;
+
+   if (p == NULL) {
+      return f;
+   }
+   if (f == NULL) {
+      return p;
+   }
+
+   if (p->num > f->num) { // Cambio de operador de comparación
+      r = creaNodo();
+      r->num = p->num;
+      r->liga = lista_3(p->liga, f);
+   } else {
+      r = creaNodo();
+      r->num = f->num;
+      r->liga = lista_3(p, f->liga);
+   }
+
+   z = r;
+
+   return z;
 }
 
-
-void ordenarLista_3(nodo* k)
-{
+void ordenarLista(nodo* z) {
 	int band;
 	nodo* v;
 	nodo* l = NULL;
-	if (k == NULL)
+	
+	if (z == NULL)
 		return;
-	do
-	{
+	
+	do {
 		band = 0;
-		v = k;
+		v = z;
+		
 		while (v->liga != l) {
-			if (v->num > v->liga->num)
-			{
-				int temp = v->num;
-				v->num = v->liga->num;
-				v->liga->num = temp;
-				band = 1;
-			}
-			v = v->liga;
+            if (v->num < v->liga->num) {
+					int temp = v->num;
+					v->num = v->liga->num;
+					v->liga->num = temp;
+					band = 1;
+            }
+            v = v->liga;
 		}
+		
 		l = v;
-	}while (band);
+	} while (band);
 }

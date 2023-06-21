@@ -56,7 +56,10 @@ void iteractivo(nodo *i){
 	if(i!=NULL){
 		printf("\n");
 		for(v=i;v!=NULL;v=v->liga){
-			printf("%.1fx^%.0f -> ", v->coef,v->expo);
+			if(v->expo==0)
+				printf("%.1fx-> ", v->coef);
+			else
+				printf("%.1fx^%.0f -> ", v->coef,v->expo);
 		}
 		printf("%s", v);
 	printf("\n\n");
@@ -143,26 +146,25 @@ float evaluar(nodo *i, float x)
 
 nodo *ordenarLista_a(nodo* i) 
 {
-    int band;
-    nodo* v;
-    nodo* l = NULL; 
-    do {
-        band = 0;
-        v = i;
-        while (v->liga != l) {
-            if (v->expo < v->liga->expo) {
-                int temp = v->expo;
-                int temp2 = v->coef;
-                v->expo=v->liga->expo;
-                v->coef=v->liga->coef;
-                v->liga->expo=temp;
-                v->liga->coef=temp2;
-                band = 1;
-                
-            }
-            v = v->liga;
-        }
-        l = v;
-    } while (band);
-	 return i;
+	int band;
+	nodo* v;
+	nodo* l = NULL; 
+	do {
+		band = 0;
+		v = i;
+		while (v->liga != l) {
+			if (v->expo < v->liga->expo) {
+				int temp = v->expo;
+				int temp2 = v->coef;
+				v->expo=v->liga->expo;
+				v->coef=v->liga->coef;
+				v->liga->expo=temp;
+				v->liga->coef=temp2;
+				band = 1;
+			}
+			v = v->liga;
+		}
+		l = v;
+	} while (band);
+	return i;
 }

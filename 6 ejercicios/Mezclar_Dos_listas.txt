@@ -1,0 +1,22 @@
+Este algoritmo iserta un nodo en unua lista ordenada, mas no desordena la lista
+ * creamos p com apuntador  del primer nodo de la primera lista
+ * creamos f como anputador del primer nodo de la segunda lista
+ * creamos k como apuntador del primer nodo de la lista mezcladas de las dos listas
+ * dato representa el contenido del nuevo nodo
+ * q,t,r,e son variables apuntador, las cuales se van a desplazar en la lista.
+ * num y liga son campos de los nodo de la lista
+
+1.hacer q<-p y t<-f
+2.crear(k)
+3.hacer k^.num<-q^.num , k^.liga<-NULL y e<-k;
+4.crear(r);
+5.hacer r^.num<-t^.num ,   r^.liga<-NULL , e^.liga<-r y  e<-r
+6.mientras ((q^.liga ≠ NULL)&&(t^.liga≠ NULL)) 
+repetir
+   6.1 hacer q<-q^.liga y t<-t^.liga
+   6.2 crear(r)
+   6.3 hacer r^.num<-q^.num , r^.liga<-NULL , e^.liga<-r y e<-r
+   6.4 r<-creaNodo();
+   6.5 hacer r^.num<-t^.num , r^.liga<-NULL , e^.liga<-r  y e<-r
+7. fin del ciclo del paso 6.
+8. escribir"creando Listas enlazada"

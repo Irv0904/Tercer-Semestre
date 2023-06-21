@@ -45,7 +45,7 @@ int verificacion(nodo *i, int num)
 		if(quiere == 1)
 		{
          system("CLS");
-			ordenarLista(i);
+			ordenarLista(i);ordenarLista(i);
 			recursivo (i);
          printf("\n\nIngrese el dato que va a eliminar ");
          j=scanf("%d",&x);
