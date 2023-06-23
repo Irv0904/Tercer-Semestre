@@ -1,19 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Definición de la estructura de un nodo
 typedef struct Nodo {
    int dato;
    struct Nodo* siguiente;
 } Nodo;
 
-// Definición de la estructura de la cola
 typedef struct Lista {
    Nodo* inicio;
    Nodo* fin;
 } Lista;
 
-// Prototipos de funciones
 void inicializarCola(Lista* cola);
 int estaVacia(Lista cola);
 void insertarCola(Lista* cola, int dato);
@@ -21,7 +18,6 @@ void eliminarCola(Lista* cola);
 void mostrarLista(Lista cola);
 void mostrarMenu();
 
-// Función principal
 int main() {
    Lista cola;
    inicializarCola(&cola);
@@ -62,23 +58,19 @@ int main() {
    return 0;
 }
 
-// Inicialización de la cola
 void inicializarCola(Lista* cola) {
    cola->inicio = NULL;
    cola->fin = NULL;
 }
 
-// Verificar si la cola está vacía
 int estaVacia(Lista cola) {
    return (cola.inicio == NULL);
 }
 
-// Insertar un elemento en la cola
 void insertarCola(Lista* cola, int dato) {
    Nodo* nuevoNodo = (Nodo*)malloc(sizeof(Nodo));
    nuevoNodo->dato = dato;
    nuevoNodo->siguiente = NULL;
-
    if (estaVacia(*cola)) {
       cola->inicio = nuevoNodo;
       cola->fin = nuevoNodo;
@@ -86,18 +78,15 @@ void insertarCola(Lista* cola, int dato) {
       cola->fin->siguiente = nuevoNodo;
       cola->fin = nuevoNodo;
    }
-
    printf("Elemento agregado correctamente a la cola.\n");
 }
 
-// Eliminar un elemento de la cola
 void eliminarCola(Lista* cola) {
    if (estaVacia(*cola)) {
       printf("La cola está vacía. No se puede eliminar ningún elemento.\n");
    } else {
       Nodo* nodoEliminar = cola->inicio;
       cola->inicio = cola->inicio->siguiente;
-
       if (cola->inicio == NULL) {
             cola->fin = NULL;
       }
@@ -106,7 +95,6 @@ void eliminarCola(Lista* cola) {
    }
 }
 
-// Mostrar la lista de elementos en la cola
 void mostrarLista(Lista cola) {
    if (estaVacia(cola)) {
       printf("La cola está vacía. No hay elementos para mostrar.\n");
@@ -121,7 +109,6 @@ void mostrarLista(Lista cola) {
    }
 }
 
-// Mostrar el menú de opciones
 void mostrarMenu() {
    printf("\n Menu de Colas ---\n");
    printf("1. Agregar \n");
