@@ -48,14 +48,14 @@ int main() {
 	return 0;
 }
 
-nodo* creaNodo(float coeficiente, float exponente) {
+nodo* creaNodo(float coef, float expo) {
 	nodo* q = (nodo*)malloc(sizeof(nodo));
 	if (q == NULL) {
 		printf("No hay memoria disponible.\n");
 		exit(1);
 	}
-	q->coef = coeficiente;
-	q->expo = exponente;
+	q->coef = coef;
+	q->expo = expo;
 	q->liga = NULL;
 	return q;
 }
