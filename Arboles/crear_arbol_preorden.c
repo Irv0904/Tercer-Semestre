@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<locale.h>
 
 typedef struct datos{
    int info;
@@ -11,23 +12,24 @@ typedef struct datos{
 
 void *crearMemoria(int n);
 Arbol *creaNodo();
-Arbol *creaArbol(int apNodo);
+Arbol *creaArbol();
+void preOrden(Arbol *apNodo);
+void inOrden(Arbol *apNodo);
+void posOrden(Arbol *apNodo);
 
 int main()
 {
-   Arbol *p = NULL;
-   int apNodo, j;
-
+   setlocale(LC_ALL," " );
+   Arbol *apNodo = NULL;
+   int dato;
    printf("Ingrese La raiz principal: ");
-   j=scanf("%d",&apNodo);
-   fflush(stdin);
-   if(j == 1)
-   {
-      p=creaNodo();
-      p=creaArbol(apNodo);
-   }   
-   else
-      printf("No es un nodo");
+   apNodo=creaArbol();
+   printf("\nArbol en PreOrden\n\n");
+   preOrden(apNodo);
+   printf("\n\nArbol en InOrden\n\n");
+   inOrden(apNodo);
+   printf("\n\nArbol en PosOrden\n\n");
+   posOrden(apNodo);
 }
 
 void *crearMemoria(int n)
@@ -46,31 +48,70 @@ Arbol *creaNodo()
    return(Arbol *)crearMemoria(sizeof(Arbol));
 }
 
-Arbol *creaArbol(int apNodo)
+Arbol *creaArbol()
 {
-   int res;
-   Arbol *p=NULL;
-   Arbol *otro=NULL;
-   p->info=apNodo;
-   printf("¿Existe un nodo por izquierda?\n1-Si\t2->No\nRespuesta: ");
-   scanf("%d", & res);
-   if(res == 1){
-      otro=creaNodo();
-      p->ligaizq=otro;
-      creaArbol(p->ligaizq);
-   }
-   else
-      p->ligaizq=NULL;
+   Arbol *apNodo = creaNodo();
+   int resp;
 
-   printf("¿Existe un nodo por derecha?\n1-Si\t2->No\nRespuesta: ");
-   scanf("%d", &res);
-   if(res == 1){
-      otro=creaNodo();
-      p->ligader=otro;
-      creaArbol(p->ligader);
-   }
-   else
-      p->ligader=NULL;
+   scanf("%d", &(apNodo->info));
 
-   return p;
+   printf("Existe nodo por izquierda de %d?\n1->Si \t 2->No: ",apNodo->info);
+   scanf("%d", &resp);
+   fflush(stdin);
+   if (resp == 1) {
+      Arbol *otro = creaNodo();
+      //printf("\nIngrese la informacion del nodo: ");
+      apNodo->ligaizq = creaArbol();
+      //apNodo->ligaizq = otro;
+      //creaArbol(apNodo->ligaizq);
+   } 
+   else {
+      apNodo->ligaizq = NULL;
+   }
+
+   printf("Existe nodo por derecha de %d?\n1->Si \t 2->No: ", apNodo->info);
+   scanf("%d", &resp);
+   fflush(stdin);
+   if (resp == 1) {
+      Arbol *otro = creaNodo();
+      //printf("\nIngrese la informacion del nodo: ");
+      apNodo->ligader = creaArbol();
+      //apNodo->ligader = otro;
+      //creaArbol(apNodo->ligader);
+   } 
+   else {
+      apNodo->ligader = NULL;
+   }
+
+   return apNodo;
+}
+
+void preOrden(Arbol *apNodo)
+{
+   if(apNodo != NULL)
+   {
+      printf("%5d ",apNodo->info);
+      preOrden(apNodo->ligaizq);
+      preOrden(apNodo->ligader);
+   }
+}
+
+void inOrden(Arbol *apNodo)
+{
+   if(apNodo != NULL)
+   {
+      inOrden(apNodo->ligaizq);
+      printf("%5d ",apNodo->info);
+      inOrden(apNodo->ligader);
+   }
+}
+
+void posOrden(Arbol *apNodo)
+{
+   if(apNodo != NULL)
+   {
+      inOrden(apNodo->ligaizq);
+      inOrden(apNodo->ligader);
+      printf("%5d ",apNodo->info);
+   }
 }

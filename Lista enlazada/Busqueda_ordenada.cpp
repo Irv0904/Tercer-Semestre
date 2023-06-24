@@ -22,7 +22,7 @@ nodo *busqueda_ordenada(nodo *i);
 int main(){
 	int num;
 	nodo *i=NULL;
-  	i= comienzo();
+	i= comienzo();
 	//iteractivo (i);
 	//i=nodoFinal(i);
 	recursivo(i);
