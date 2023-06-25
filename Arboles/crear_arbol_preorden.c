@@ -11,7 +11,8 @@
 #include<string.h>
 #include<locale.h>
 
-typedef struct datos{
+typedef struct datos
+{
    int info;
    struct datos *ligader;
    struct datos *ligaizq;
@@ -30,11 +31,14 @@ void posOrden(Arbol *apNodo);
 Arbol *busqueda_ABB(Arbol *apNodo, int info);
 Arbol *busqueda_v1_ABB(Arbol *apNodo, int info);
 
+Arbol *insercion_ABB(Arbol *apNodo, int info);
+Arbol *insercion_v1_ABB(Arbol *apNodo, int info);
+
 int main()
 {
    setlocale(LC_ALL," " );
    Arbol *apNodo = NULL;
-   int dato, info;
+   int info;
 
    apNodo = creaNodo();
    printf("Ingrese La raiz principal: ");
@@ -58,6 +62,34 @@ int main()
    scanf("%d", &info);
    fflush(stdin);
    apNodo = busqueda_v1_ABB(apNodo,info);
+
+   printf("\n\nIngrese la informacion a ingresar: ");
+   scanf("%d", &info);
+   fflush(stdin);
+   apNodo = insercion_ABB(apNodo, info);
+
+   printf("\nArbol en PreOrden\n\n");
+   preOrden(apNodo);
+
+   printf("\n\nArbol en InOrden\n\n");
+   inOrden(apNodo);
+
+   printf("\n\nArbol en PosOrden\n\n");
+   posOrden(apNodo);
+
+   printf("\n\nIngrese la informacion a ingresar: ");
+   scanf("%d", &info);
+   fflush(stdin);
+   apNodo = insercion_v1_ABB(apNodo, info); 
+
+   printf("\nArbol en PreOrden\n\n");
+   preOrden(apNodo);
+
+   printf("\n\nArbol en InOrden\n\n");
+   inOrden(apNodo);
+
+   printf("\n\nArbol en PosOrden\n\n");
+   posOrden(apNodo);     
 }
 
 void *crearMemoria(int n)
@@ -182,4 +214,73 @@ Arbol *busqueda_v1_ABB(Arbol *apNodo, int info)
    }
    else
       printf("\nLa informacion dada no se encuentra en el Arbol\n");
+
+   return apNodo;
+}
+
+Arbol *insercion_ABB(Arbol *apNodo, int info)
+{
+   if(info < apNodo->info)
+   {
+      if(apNodo->ligaizq == NULL)
+      {
+         Arbol *otroArbol = creaNodo();
+         otroArbol->ligaizq = NULL;
+         otroArbol->ligader = NULL;
+         otroArbol->info = info;
+         apNodo->ligaizq = otroArbol;
+      }
+      else
+         insercion_ABB(apNodo->ligaizq, info);
+   }
+   else
+   {
+      if(info > apNodo->info)
+      {
+         if(apNodo->ligader == NULL)
+         {
+            Arbol *otroArbol = creaNodo();
+            otroArbol->ligaizq = NULL;
+            otroArbol->ligader = NULL;
+            otroArbol->info = info;
+            apNodo->ligader = otroArbol;
+         }
+         else
+            insercion_ABB(apNodo->ligader, info);
+      }
+      else
+         printf("\nLa informacion dada ya se encuentra en el Arbol\n");
+   }
+   return apNodo;
+}
+
+Arbol *insercion_v1_ABB(Arbol *apNodo, int info)
+{
+   if(apNodo != NULL)
+   {
+      if(info < apNodo->info)
+      {
+         insercion_v1_ABB(apNodo->ligaizq, info);
+      }
+      else
+      {
+         if(info > apNodo->info)
+         {
+            insercion_v1_ABB(apNodo->ligader, info);
+         }
+         else
+         {
+            printf("La informacion dada ya se encuentra en el arbol");
+         }
+      }
+   }
+   else
+   {
+      Arbol *otroArbol = creaNodo();
+      otroArbol->ligaizq = NULL;
+      otroArbol->ligader = NULL;
+      otroArbol->info = info;
+      apNodo = otroArbol;
+   }
+   return apNodo;
 }
