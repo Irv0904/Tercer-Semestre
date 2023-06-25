@@ -20,25 +20,44 @@ typedef struct datos{
 
 void *crearMemoria(int n);
 Arbol *creaNodo();
+
 Arbol *creaArbol(Arbol *apNodo);
+
 void preOrden(Arbol *apNodo);
 void inOrden(Arbol *apNodo);
 void posOrden(Arbol *apNodo);
+
+Arbol *busqueda_ABB(Arbol *apNodo, int info);
+Arbol *busqueda_v1_ABB(Arbol *apNodo, int info);
 
 int main()
 {
    setlocale(LC_ALL," " );
    Arbol *apNodo = NULL;
-   int dato;
+   int dato, info;
+
    apNodo = creaNodo();
    printf("Ingrese La raiz principal: ");
    apNodo=creaArbol(apNodo);
+
    printf("\nArbol en PreOrden\n\n");
    preOrden(apNodo);
+
    printf("\n\nArbol en InOrden\n\n");
    inOrden(apNodo);
+
    printf("\n\nArbol en PosOrden\n\n");
    posOrden(apNodo);
+
+   printf("\n\nIngrese la informacion a buscar: ");
+   scanf("%d", &info);
+   fflush(stdin);
+   apNodo = busqueda_ABB(apNodo,info);
+
+   printf("\n\nIngrese la informacion a buscar: ");
+   scanf("%d", &info);
+   fflush(stdin);
+   apNodo = busqueda_v1_ABB(apNodo,info);
 }
 
 void *crearMemoria(int n)
@@ -94,7 +113,7 @@ Arbol *creaArbol(Arbol *apNodo)
 
    scanf("%d", &(apNodo->info));
 
-   printf("Existe nodo por izquierda de %d?\n1->Si \t 2->No: ",apNodo->info);
+   printf("\nExiste nodo por izquierda de %d?\n1->Si \t 2->No: ",apNodo->info);
    scanf("%d", &resp);
    fflush(stdin);
    if (resp == 1) {
@@ -107,7 +126,7 @@ Arbol *creaArbol(Arbol *apNodo)
       apNodo->ligaizq = NULL;
    }
 
-   printf("Existe nodo por derecha de %d?\n1->Si \t 2->No: ", apNodo->info);
+   printf("\nExiste nodo por derecha de %d?\n1->Si \t 2->No: ", apNodo->info);
    scanf("%d", &resp);
    fflush(stdin);
    if (resp == 1) {
@@ -121,4 +140,46 @@ Arbol *creaArbol(Arbol *apNodo)
    }
 
    return apNodo;
+}
+
+Arbol *busqueda_ABB(Arbol *apNodo, int info)
+{
+   if(info < apNodo->info)
+   {
+      if(apNodo->ligaizq == NULL)
+         printf("\nLa informacion dada no se encuentra en el arbol\n");
+      else
+         busqueda_ABB(apNodo->ligaizq, info);
+   }
+   else
+   {
+      if(info > apNodo->info)
+      {
+         if(apNodo->ligader == NULL)
+            printf("\nLa informacion dada no se encuentra en el arbol\n");
+         else
+            busqueda_ABB(apNodo->ligader, info);
+      }
+      else
+         printf("\nLa informacion dada si esta en el arbol\n");
+   }
+   return apNodo;
+}
+
+Arbol *busqueda_v1_ABB(Arbol *apNodo, int info)
+{
+   if(apNodo != NULL)
+   {
+      if(info < apNodo->info)
+         busqueda_v1_ABB(apNodo->ligaizq, info);
+      else
+      {
+         if(info > apNodo->info)
+            busqueda_v1_ABB(apNodo->ligader, info);
+         else
+            printf("\nLa inforamacion dada si se encuentra en el arbol\n");
+      }
+   }
+   else
+      printf("\nLa informacion dada no se encuentra en el Arbol\n");
 }
