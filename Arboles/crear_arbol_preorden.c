@@ -19,6 +19,8 @@ typedef struct datos
    
 }Arbol;
 
+typedef enum{false, true} bool;
+
 void *crearMemoria(int n);
 Arbol *creaNodo();
 
@@ -33,6 +35,8 @@ Arbol *busqueda_v1_ABB(Arbol *apNodo, int info);
 
 Arbol *insercion_ABB(Arbol *apNodo, int info);
 Arbol *insercion_v1_ABB(Arbol *apNodo, int info);
+
+Arbol *eliminacion_ABB(Arbol *apNodo, int info);
 
 int main()
 {
@@ -77,7 +81,7 @@ int main()
    printf("\n\nArbol en PosOrden\n\n");
    posOrden(apNodo);
 
-   printf("\n\nIngrese la informacion a ingresar: ");
+   /*printf("\n\nIngrese la informacion a ingresar: ");
    scanf("%d", &info);
    fflush(stdin);
    apNodo = insercion_v1_ABB(apNodo, info); 
@@ -89,18 +93,33 @@ int main()
    inOrden(apNodo);
 
    printf("\n\nArbol en PosOrden\n\n");
-   posOrden(apNodo);     
+   posOrden(apNodo);*/   
+
+   printf("\n\nIngrese la informacion a eliminar: ");
+   scanf("%d", &info);
+   fflush(stdin);
+   apNodo = eliminacion_ABB(apNodo, info);
+
+   printf("\nArbol en PreOrden\n\n");
+   preOrden(apNodo);
+
+   printf("\n\nArbol en InOrden\n\n");
+   inOrden(apNodo);
+
+   printf("\n\nArbol en PosOrden\n\n");
+   posOrden(apNodo);   
 }
 
 void *crearMemoria(int n)
 {
    void *p = (int *)malloc(n);
-   if(p== NULL)
+   if(p == NULL)
    {
       printf("NO HAY MEMORIA, PARA CREAR NODO");
       getchar();
       exit(1);
    }
+   return p;
 }
 
 Arbol *creaNodo()
@@ -132,8 +151,8 @@ void posOrden(Arbol *apNodo)
 {
    if(apNodo != NULL)
    {
-      inOrden(apNodo->ligaizq);
-      inOrden(apNodo->ligader);
+      posOrden(apNodo->ligaizq);
+      posOrden(apNodo->ligader);
       printf("%5d ",apNodo->info);
    }
 }
@@ -148,26 +167,30 @@ Arbol *creaArbol(Arbol *apNodo)
    printf("\nExiste nodo por izquierda de %d?\n1->Si \t 2->No: ",apNodo->info);
    scanf("%d", &resp);
    fflush(stdin);
-   if (resp == 1) {
+   if (resp == 1) 
+   {
       otroArbol = creaNodo();
       printf("\nIngrese la informacion del nodo: ");
       apNodo->ligaizq =otroArbol;
       creaArbol(apNodo->ligaizq);
    } 
-   else {
+   else 
+   {
       apNodo->ligaizq = NULL;
    }
 
    printf("\nExiste nodo por derecha de %d?\n1->Si \t 2->No: ", apNodo->info);
    scanf("%d", &resp);
    fflush(stdin);
-   if (resp == 1) {
+   if (resp == 1) 
+   {
       otroArbol = creaNodo();
       printf("\nIngrese la informacion del nodo: ");
       apNodo->ligader = otroArbol;
       creaArbol(apNodo->ligader);
    } 
-   else {
+   else
+   {
       apNodo->ligader = NULL;
    }
 
@@ -257,21 +280,15 @@ Arbol *insercion_ABB(Arbol *apNodo, int info)
 Arbol *insercion_v1_ABB(Arbol *apNodo, int info)
 {
    if(apNodo != NULL)
-   {
+   { 
       if(info < apNodo->info)
-      {
          insercion_v1_ABB(apNodo->ligaizq, info);
-      }
       else
       {
          if(info > apNodo->info)
-         {
             insercion_v1_ABB(apNodo->ligader, info);
-         }
          else
-         {
             printf("La informacion dada ya se encuentra en el arbol");
-         }
       }
    }
    else
@@ -282,5 +299,61 @@ Arbol *insercion_v1_ABB(Arbol *apNodo, int info)
       otroArbol->info = info;
       apNodo = otroArbol;
    }
+   return apNodo;
+}
+
+Arbol *eliminacion_ABB(Arbol *apNodo, int info)
+{
+   Arbol *otroArbol, *arbolAux, *arbolAux_1;
+   if(apNodo != NULL)
+   {
+      if(info < apNodo->info)
+         eliminacion_ABB(apNodo->ligaizq, info);
+      else
+      {
+         if(info > apNodo->info)
+         {
+            eliminacion_ABB(apNodo->ligader, info);
+         }
+         else
+         {
+            otroArbol = apNodo;
+            if(otroArbol->ligader == NULL)
+            {
+               apNodo = otroArbol->ligaizq;
+            }
+            else
+            {
+               if(otroArbol->ligaizq == NULL)
+               {
+                  apNodo = otroArbol->ligader;
+               }
+               else
+               {
+                  arbolAux = apNodo->ligaizq;
+                  bool bo = false;
+                  while(arbolAux->ligader !=  NULL)
+                  {
+                     arbolAux_1 = arbolAux;
+                     arbolAux = arbolAux->ligader;
+                     bo = true;
+                  }
+                  if(bo == true)
+                  {
+                     arbolAux_1->ligader = arbolAux->ligaizq;
+                  }
+                  else
+                  {
+                     apNodo->ligaizq = arbolAux->ligaizq;
+                  }
+               }
+            }
+            free(otroArbol);
+         }
+      }
+   }
+   else
+      printf("La informacion dada para eliminar no se encuentra en el arbol");
+
    return apNodo;
 }
