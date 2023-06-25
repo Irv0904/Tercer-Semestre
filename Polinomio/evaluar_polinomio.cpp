@@ -1,4 +1,11 @@
-//PASO LA PRUEBA
+/*
+	Name:evualua un polinomio
+	Copyright:Todos los derecho reservados 
+	Author: Irving Jhon Villarreal Lasso
+	Date: 23/05/23 14:24
+	Description: Este codigo evalua un polinomio y da el resultado
+	Calificacion:
+*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>

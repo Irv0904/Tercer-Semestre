@@ -1,3 +1,11 @@
+/*
+	Name:Suma dos polinomios
+	Author: Irving Jhon Villarreal Lasso
+	Date: 23/05/23 14:24
+	Description: Suma dos polinomios
+	Calificacion:
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 

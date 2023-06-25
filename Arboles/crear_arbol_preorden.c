@@ -1,3 +1,11 @@
+/*
+	Name:Crear Arbol con dintistos recorrido
+	Author: Irving Jhon Villarreal Lasso
+	Date: 23/05/23 14:24
+	Description: Este codigo se usa para hacer un arbol con distinto recorridos
+	Calificacion:
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>

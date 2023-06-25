@@ -1,3 +1,10 @@
+/*
+	Name:Menu de una agenda telefonica
+	Copyright:Todos los derecho reservados 
+	Author: Irving Jhon Villarreal Lasso
+	Date: 23/05/23 14:24
+	Calificacion:
+*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
