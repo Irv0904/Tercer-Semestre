@@ -23,7 +23,7 @@ nodo *nodoFinal (nodo *i);
 int  verifica_orden_ascendente(nodo * i);
 void ordenarLista(nodo*i);
 nodo *liberiaMemoria(nodo *i);
-nodo *insertar(nodo *i);
+nodo *insertar(nodo *i, int dato);
 int verificacion(nodo *i, int num);
 
 int main(){
@@ -38,7 +38,7 @@ int main(){
 
 int verificacion(nodo *i, int num)
 {
-	int ingr;
+	int ingr, dato;
 	int quiere;
 	num = verifica_orden_ascendente(i);
 	if(num==1)
@@ -51,18 +51,24 @@ int verificacion(nodo *i, int num)
 		{
 			ordenarLista(i);
 			recursivo (i);
-			i=insertar(i);
+			printf("\n\nIngrese el dato que va a insertar ");
+			scanf("%d",&dato);
+			fflush(stdin);
+			i=insertar(i, dato);
 			recursivo (i);
-			printf("Dese ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
+			printf("\nDesea ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
 			scanf("%d", &ingr);
 			fflush(stdin);
 			while(ingr != 0)
 			{
 				system("CLS");
 				recursivo (i);
-				i=insertar(i);
+				printf("\n\nIngrese el dato que va a insertar ");
+				scanf("%d",&dato);
+				fflush(stdin);
+				i=insertar(i, dato);
 				recursivo (i);
-				printf("Desea ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
+				printf("\nDesea ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
 				scanf("%d", &ingr);
 				fflush(stdin);
 			}
@@ -76,18 +82,24 @@ int verificacion(nodo *i, int num)
 	else
 	{
 		printf("\n\t\t\tSI esta ordenada\n\t\t\tSigamos...");
-		i=insertar(i);
+		printf("\n\nIngrese el dato que va a insertar ");
+		scanf("%d",&dato);
+		fflush(stdin);
+		i=insertar(i, dato);
 		recursivo (i);
-		printf("Desea ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
+		printf("\nDesea ingresar mas nodos:\n\t\t0->NO\t 1->SI\n\t\tRespuesta:  ");
 		scanf("%d", &ingr);
 		fflush(stdin);
 		while(ingr != 0)
 		{
 			system("CLS");
 			recursivo (i);
-			i=insertar(i);
+			printf("\n\nIngrese el dato que va a insertar ");
+			scanf("%d",&dato);
+			fflush(stdin);
+			i=insertar(i,dato);
 			recursivo (i);
-			printf("Dese ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
+			printf("\nDesea ingresar mas nodos:\n\t\t0->NO\t1->SI\n\t\tRespuesta:  ");
 			scanf("%d", &ingr);
 			fflush(stdin);
 		}
@@ -227,57 +239,51 @@ void ordenarLista(nodo* i) {
 	} while (band);
 }
 
-nodo *insertar(nodo *i) {
+nodo *insertar(nodo *i, int dato) {
 	nodo *v,*l,*k;	
-	int j,dato;
 	int band =1;
 	v=i;
-	printf("\n\nIngrese el dato que va a insertar ");
-	j=scanf("%d",&dato);
-	fflush(stdin);
-	if(j==1){
-		while((v->num<dato)&&(band == 1))
-		{
-			if(v->liga!=NULL){
-				l=v;
-				v=v->liga;
-			}
-			else{
-				band=0;
-				break;
-				}
+	while((v->num<dato)&&(band == 1))
+	{
+		if(v->liga!=NULL){
+			l=v;
+			v=v->liga;
 		}
-		if(band==1)
+		else{
+			band=0;
+			break;
+			}
+	}
+	if(band==1)
+	{
+		if((l->num<dato)&&(v->num>dato)&&(v!=i))
 		{
-			if((l->num<dato)&&(v->num>dato)&&(v!=i))
+			k=creaNodo();
+			k->num=dato;
+			k->liga=v;
+			l->liga=k;
+		}
+		else{
+			if(v->num>dato)
 			{
 				k=creaNodo();
 				k->num=dato;
 				k->liga=v;
-				l->liga=k;
+				v=k;
+				i=v;
 			}
-			else{
-				if(v->num>dato)
-				{
-					k=creaNodo();
-					k->num=dato;
-					k->liga=v;
-					v=k;
-					i=v;
-				}
-				else
-					printf("\n\n\t\t\tYa existe ese nuemro\n\n");
-			}
+			else
+				printf("\n\n\t\t\tYa existe ese nuemro\n\n");
 		}
-		else{
-			if((v->num < dato) and (v->liga == NULL))
-			{
-				k=creaNodo();
-				k->num=dato;
-				k->liga=NULL;
-				v->liga=k;
-			}
-		}
-		return(i);				
 	}
+	else{
+		if((v->num < dato) and (v->liga == NULL))
+		{
+			k=creaNodo();
+			k->num=dato;
+			k->liga=NULL;
+			v->liga=k;
+		}
+	}
+	return(i);				
 }

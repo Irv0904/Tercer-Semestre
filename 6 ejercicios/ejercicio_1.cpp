@@ -144,7 +144,7 @@ nodo *comienzo(){
 	int num,j;
 	nodo *i, *v;
 	i = creaNodo();
-	printf("\nIngrese un digito: ");
+	printf("\nIngrese un dato: ");
 	j=scanf("%d",&num);
 	fflush(stdin);
 	if(j == 1){
@@ -152,7 +152,7 @@ nodo *comienzo(){
 		i -> liga=NULL;	
 		do{
 		v= creaNodo();
-		printf("Ingrese dato: ");
+		printf("Ingrese un dato: ");
 		j=scanf("%d", &num);
 		fflush(stdin);
 		if (j == 1){
@@ -248,7 +248,7 @@ nodo *insertar_antes_x(nodo *i)
 			{
 				k=creaNodo();
 				k->num=dato;
-				printf("1");
+				//printf("1");
 				k->liga=i;
 				i=k;
 			}

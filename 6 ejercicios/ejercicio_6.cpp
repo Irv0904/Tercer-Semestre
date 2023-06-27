@@ -29,37 +29,37 @@ nodo *libera_lista_2(nodo *f);
 nodo *lista_3(nodo *p, nodo *f);
 void recursivo_3(nodo *z);
 nodo *libera_lista_3(nodo *z);
+
 void ordenarLista(nodo*z);
 int main(){
 	int num;
 	nodo *p=NULL;
-   nodo *f=NULL;
-   nodo *z=NULL;
+   	nodo *f=NULL;
+   	nodo *z=NULL;
 
-   printf("\t\t\tLista 1:\n");
+	printf("\t\t\tLista 1:\n");
 	p=lista_1(p);
-   recursivo_1(p);
+	recursivo_1(p);
 
-   printf("\n\n\t\t\tLista 2:\n");
-   f=lista_2(f);
-   recursivo_2(f);
+	printf("\n\n\t\t\tLista 2:\n");
+	f=lista_2(f);
+	recursivo_2(f);
 
-   printf("\n\n\t\t\tLista 3 y mezclada y ordenada descendente:\n");
-   z=lista_3(p,f);
-   ordenarLista(z);   
-   recursivo_3(z);
+	printf("\n\n\t\t\tLista 3 y mezclada y ordenada descendente:\n");
+	z=lista_3(p,f);
+	ordenarLista(z);   
+	recursivo_3(z);
 
-	libera_lista_3(z);
-	libera_lista_2(f);
 	libera_lista_1(p);
-   
+	libera_lista_2(f);	
+	libera_lista_3(z);
 }
 
 void *creaMemoria(int n)
 {
 	void *i=(int *)malloc(n);
 	if(i==NULL)
-   {
+	{
 		printf("No hay memoria");
 		getchar();
 		exit(1);
@@ -75,7 +75,7 @@ nodo *creaNodo()
 void recursivo_1(nodo *p)
 {
 	if(p != NULL)
-   {
+	{
 		printf("%5d->",p->num);
 		if(p->liga!=NULL)
 			recursivo_1 (p->liga);
@@ -89,7 +89,7 @@ void recursivo_1(nodo *p)
 void recursivo_2 (nodo *f)
 {
 	if(f != NULL)
-   {
+	{
 		printf("%5d->",f->num);
 		if(f->liga!=NULL)
 			recursivo_2 (f->liga);
@@ -103,7 +103,7 @@ void recursivo_2 (nodo *f)
 void recursivo_3 (nodo *z)
 {
 	if(z != NULL)
-   {
+	{
 		printf("%5d->",z->num);
 		if(z->liga!=NULL)
 			recursivo_2 (z->liga);
@@ -260,30 +260,42 @@ nodo *lista_2 (nodo *f)
 	}
 }
 
-nodo* lista_3(nodo* p, nodo* f) {
-   nodo* r = NULL;
-   nodo* z = NULL;
+nodo* lista_3(nodo* p, nodo* f) 
+{
+	nodo *r = NULL;
+	nodo* z = NULL;
+	nodo* t = NULL;
+	nodo* q = NULL;
 
-   if (p == NULL) {
-      return f;
-   }
-   if (f == NULL) {
-      return p;
-   }
+	q = p;
+	t = f;
+	if (q== NULL) {
+		return t;
+	}
+	if (t == NULL) {
+		return q;
+	}
 
-   if (p->num > f->num) { // Cambio de operador de comparación
-      r = creaNodo();
-      r->num = p->num;
-      r->liga = lista_3(p->liga, f);
-   } else {
-      r = creaNodo();
-      r->num = f->num;
-      r->liga = lista_3(p, f->liga);
-   }
+	if (q->num > t->num) 
+	{ // Cambio de operador de comparación
+		z = creaNodo();
+		r = creaNodo();
+		z->num = t->num;
+		r->num = q->num;
+		z->liga = r;
+		r->liga = lista_3(q->liga, t->liga);
+	} 
+	else 
+	{
+		z = creaNodo();
+		r = creaNodo();
+		r->num = t->num;
+		z->num = q->num;
+		z->liga = r;
+		r->liga = lista_3(q->liga, t->liga);
+	}
 
-   z = r;
-
-   return z;
+	return z;
 }
 
 void ordenarLista(nodo* z) {

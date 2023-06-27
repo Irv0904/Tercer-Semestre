@@ -1,0 +1,33 @@
+Este algoritmo iserta un nodo despues del otro dad como referencia, si la referencia es menor al nuevo nodo,
+
+ * creamos p com apuntador  del primer nodo
+ * creamos f com apuntador  del segundo nodo
+ * k representa el contenido del nuevo nodo
+ * r, z,t y quiere son variables apuntador, las cuales se van a desplazar en la lista.
+ * num y liga son campos de los nodo de la lista
+
+1. hacer q<-q y t<-f
+2. si (q = NULL) 
+   entonces
+      retorna t;
+3. fin de la condicion del paso 1
+4. si (t = NULL)
+   entonces
+      retorna q;
+5. fin de la condicion del paso 1
+6. si (q^.num > t^.num)
+   entonces
+      crear(r);
+      crear(z);
+      z^.num <- q^.num
+      r^.num <- t^.num
+      z^.liga <- r
+      r^.liga <- lista_3(q^.liga, t^.liga);
+   sino 
+      crear(r);
+      crear(z);
+      r^.num <- t^.num
+      z^.num <- q^.num
+      z^.liga <- r
+      r^.liga <- lista_3(q^.liga, t^.liga);
+7. fin de la condicional del paso 6

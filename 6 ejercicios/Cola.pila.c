@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include<locale.h>
 // Definición de la estructura de un nodo
 typedef struct Nodo {
     int dato;
@@ -23,6 +23,7 @@ void mostrarMenu();
 
 // Función principal
 int main() {
+    setlocale(LC_ALL, " ");
     Lista cola;
     inicializarCola(&cola);
 
@@ -113,10 +114,10 @@ int frenteCola(Lista cola) {
 
 // Mostrar el menú de opciones
 void mostrarMenu() {
-    printf("\n--- Menú ---\n");
-    printf("1. Agregar elemento a la cola\n");
-    printf("2. Eliminar elemento de la cola\n");
-    printf("3. Mostrar frente de la cola\n");
+    printf("\n--- Menu de Cola ---\n");
+    printf("1. Agregar \n");
+    printf("2. Eliminar \n");
+    printf("3. Mostrar \n");
     printf("4. Salir\n");
     printf("Ingrese una opción: ");
 }

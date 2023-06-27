@@ -93,7 +93,7 @@ int main()
    inOrden(apNodo);
 
    printf("\n\nArbol en PosOrden\n\n");
-   posOrden(apNodo);*/   
+   posOrden(apNodo); 
 
    printf("\n\nIngrese la informacion a eliminar: ");
    scanf("%d", &info);
@@ -107,7 +107,7 @@ int main()
    inOrden(apNodo);
 
    printf("\n\nArbol en PosOrden\n\n");
-   posOrden(apNodo);   
+   posOrden(apNodo);  */
 }
 
 void *crearMemoria(int n)
@@ -277,7 +277,7 @@ Arbol *insercion_ABB(Arbol *apNodo, int info)
    return apNodo;
 }
 
-Arbol *insercion_v1_ABB(Arbol *apNodo, int info)
+/*Arbol *insercion_v1_ABB(Arbol *apNodo, int info)
 {
    if(apNodo != NULL)
    { 
@@ -312,22 +312,16 @@ Arbol *eliminacion_ABB(Arbol *apNodo, int info)
       else
       {
          if(info > apNodo->info)
-         {
             eliminacion_ABB(apNodo->ligader, info);
-         }
          else
          {
             otroArbol = apNodo;
             if(otroArbol->ligader == NULL)
-            {
                apNodo = otroArbol->ligaizq;
-            }
             else
             {
                if(otroArbol->ligaizq == NULL)
-               {
                   apNodo = otroArbol->ligader;
-               }
                else
                {
                   arbolAux = apNodo->ligaizq;
@@ -339,13 +333,9 @@ Arbol *eliminacion_ABB(Arbol *apNodo, int info)
                      bo = true;
                   }
                   if(bo == true)
-                  {
                      arbolAux_1->ligader = arbolAux->ligaizq;
-                  }
                   else
-                  {
                      apNodo->ligaizq = arbolAux->ligaizq;
-                  }
                }
             }
             free(otroArbol);
@@ -354,6 +344,6 @@ Arbol *eliminacion_ABB(Arbol *apNodo, int info)
    }
    else
       printf("La informacion dada para eliminar no se encuentra en el arbol");
-
+      
    return apNodo;
-}
+}*/
