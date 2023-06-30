@@ -9,7 +9,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include<locale.h>
 
 typedef struct datos
 {
@@ -39,74 +38,129 @@ void eliminacion_ABB(Arbol **apNodo, int info);
 
 int main()
 {
-    setlocale(LC_ALL," " );
     Arbol *apNodo = NULL;
-    int info;
-
-    apNodo = creaNodo();
-    printf("Ingrese La raiz principal: ");
-    apNodo=creaArbol(apNodo);
-
-    printf("\nArbol en PreOrden\n\n");
-    preOrden(apNodo);
-
-    printf("\n\nArbol en InOrden\n\n");
-    inOrden(apNodo);
-
-    printf("\n\nArbol en PosOrden\n\n");
-    posOrden(apNodo);
-
-    /*printf("\n\nIngrese la informacion a buscar: ");
-    scanf("%d", &info);
-    fflush(stdin);
-    apNodo = busqueda_ABB(apNodo,info);
-
-    printf("\n\nIngrese la informacion a buscar: ");
-    scanf("%d", &info);
-    fflush(stdin);
-    apNodo = busqueda_v1_ABB(apNodo,info);
-
-    printf("\n\nIngrese la informacion a ingresar: ");
-    scanf("%d", &info);
-    fflush(stdin);
-    apNodo = insercion_ABB(apNodo, info);
-
-    printf("\nArbol en PreOrden\n\n");
-    preOrden(apNodo);
-
-    printf("\n\nArbol en InOrden\n\n");
-    inOrden(apNodo);
-
-    printf("\n\nArbol en PosOrden\n\n");
-    posOrden(apNodo);
-
-    printf("\n\nIngrese la informacion a ingresar: ");
-    scanf("%d", &info);
-    fflush(stdin);
-    apNodo = insercion_v1_ABB(apNodo, info); 
-
-    printf("\nArbol en PreOrden\n\n");
-    preOrden(apNodo);
-
-    printf("\n\nArbol en InOrden\n\n");
-    inOrden(apNodo);
-
-    printf("\n\nArbol en PosOrden\n\n");
-    posOrden(apNodo); */
-
-    printf("\n\nIngrese la informacion a eliminar: ");
-    scanf("%d", &info);
-    fflush(stdin);
-    eliminacion_ABB(&apNodo, info);
-
-    printf("\nArbol en PreOrden\n\n");
-    preOrden(apNodo);
-
-    printf("\n\nArbol en InOrden\n\n");
-    inOrden(apNodo);
-
-    printf("\n\nArbol en PosOrden\n\n");
-    posOrden(apNodo);  
+    int info , resp, subdato;
+    do
+    {
+        system("CLS");
+        printf("\t\t\t*****************\n\t\t\t*Menu de Arboles*\n\t\t\t*****************\n");
+        printf("\t\t\t1->Crear\n\t\t\t2->Ingresar\n\t\t\t3->Eliminar\n\t\t\t4->Busqueda\n\t\t\t5->Salir\n\t\t\tRespuesta: ");
+        scanf("%d", & resp);
+        fflush(stdin);
+        switch (resp)
+        {
+            case 1:
+                system("CLS");
+                apNodo = creaNodo();
+                printf("Ingrese La raiz principal: ");
+                apNodo=creaArbol(apNodo);
+                printf("\nArbol en PreOrden\n\n");
+                preOrden(apNodo);
+                printf("\n\nArbol en InOrden\n\n");
+                inOrden(apNodo);
+                printf("\n\nArbol en PosOrden\n\n");
+                posOrden(apNodo);
+                system("PAUSE");
+                break;
+            case 2:
+                system("CLS");
+                printf("Insercion en un arbol, elija una opcion");
+                printf("1->Insercion\n2->Insercion v1\n3->Salir");
+                scanf("%d",&subdato);
+                fflush(stdin);
+                switch (subdato)
+                {
+                    do
+                    {
+                        case 1:
+                            printf("\n\nIngrese la informacion a ingresar: ");
+                            scanf("%d", &info);
+                            fflush(stdin);
+                            apNodo = insercion_ABB(apNodo, info);
+                            printf("\nArbol en PreOrden\n\n");
+                            preOrden(apNodo);
+                            printf("\n\nArbol en InOrden\n\n");
+                            inOrden(apNodo);
+                            printf("\n\nArbol en PosOrden\n\n");
+                            posOrden(apNodo);
+                            system("PAUSE");
+                            break;
+                        case 2:
+                            printf("\n\nIngrese la informacion a ingresar: ");
+                            scanf("%d", &info);
+                            fflush(stdin);
+                            apNodo = insercion_v1_ABB(apNodo, info); 
+                            printf("\nArbol en PreOrden\n\n");
+                            preOrden(apNodo);
+                            printf("\n\nArbol en InOrden\n\n");
+                            inOrden(apNodo);
+                            printf("\n\nArbol en PosOrden\n\n");
+                            posOrden(apNodo); 
+                            system("PAUSE");
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            printf("ERROR, el dato ingresado es incorrecto");
+                            break;
+                    }while(subdato != 3);
+                    break;
+                }
+                break;
+            case 3:
+                system("CLS");
+                printf("\n\nIngrese la informacion a eliminar: ");
+                scanf("%d", &info);
+                fflush(stdin);
+                eliminacion_ABB(&apNodo, info);
+                printf("\nArbol en PreOrden\n\n");
+                preOrden(apNodo);
+                printf("\n\nArbol en InOrden\n\n");
+                inOrden(apNodo);
+                printf("\n\nArbol en PosOrden\n\n");
+                posOrden(apNodo);  
+                system("PAUSE");
+                break;
+            case 4:
+                system("CLS");
+                printf("Busqueda en arbol, elija una opcion");
+                printf("1->Busqueda\n2->Busqueda v1\n3->Salir");
+                scanf("%d",&subdato);
+                fflush(stdin);
+                switch (subdato)
+                {
+                    do
+                    
+                    {
+                        case 1:
+                            printf("\n\nIngrese la informacion a buscar: ");
+                            scanf("%d", &info);
+                            fflush(stdin);
+                            apNodo = busqueda_ABB(apNodo,info);
+                            system("PAUSE");
+                            break;
+                        case 2:
+                            printf("\n\nIngrese la informacion a buscar: ");
+                            scanf("%d", &info);
+                            fflush(stdin);
+                            apNodo = busqueda_v1_ABB(apNodo,info);
+                            system("PAUSE");
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            printf("ERROR, el dato ingresado es incorrecto");
+                            break;
+                    }while(subdato != 3);
+                    break;
+                }
+                break;
+            case 5:
+                break;
+            default:
+                break;
+        }
+    }while(resp != 5);
 }
 
 void *crearMemoria(int n)
@@ -339,9 +393,9 @@ void eliminacion_ABB(Arbol **apNodo, int info)
             }
 
             if (bo == true)
-               arbolAux_1->ligader = arbolAux->ligaizq;
+                arbolAux_1->ligader = arbolAux->ligaizq;
             else
-               (*apNodo)->ligaizq = arbolAux->ligaizq;
+                (*apNodo)->ligaizq = arbolAux->ligaizq;
         }
         free(otroArbol);
     }

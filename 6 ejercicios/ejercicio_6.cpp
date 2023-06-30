@@ -269,12 +269,10 @@ nodo* lista_3(nodo* p, nodo* f)
 
 	q = p;
 	t = f;
-	if (q== NULL) {
+	if (q== NULL) 
 		return t;
-	}
-	if (t == NULL) {
+	if (t == NULL) 
 		return q;
-	}
 
 	if (q->num > t->num) 
 	{ // Cambio de operador de comparación

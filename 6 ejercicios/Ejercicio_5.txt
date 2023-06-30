@@ -3,20 +3,49 @@ Este algoritmo iserta un nodo en unua lista ordenada, mas no desordena la lista
  * creamos f como anputador del primer nodo de la segunda lista
  * creamos k como apuntador del primer nodo de la lista mezcladas de las dos listas
  * dato representa el contenido del nuevo nodo
- * q,t,r,e son variables apuntador, las cuales se van a desplazar en la lista.
+ * k, w, r, q, t, x son variables apuntador, las cuales se van a desplazar en la lista.
  * num y liga son campos de los nodo de la lista
 
 1.hacer q<-p y t<-f
-2.crear(k)
-3.hacer k^.num<-q^.num , k^.liga<-NULL y e<-k;
-4.crear(r);
-5.hacer r^.num<-t^.num ,   r^.liga<-NULL , e^.liga<-r y  e<-r
-6.mientras ((q^.liga ≠ NULL)&&(t^.liga≠ NULL)) 
-repetir
-   6.1 hacer q<-q^.liga y t<-t^.liga
-   6.2 crear(r)
-   6.3 hacer r^.num<-q^.num , r^.liga<-NULL , e^.liga<-r y e<-r
-   6.4 r<-creaNodo();
-   6.5 hacer r^.num<-t^.num , r^.liga<-NULL , e^.liga<-r  y e<-r
-7. fin del ciclo del paso 6.
-8. escribir"creando Listas enlazada"
+2. hacer ((q != NIL) && (t != NIL)) mientras
+		crear(w);
+		2.1 si (q^.num < t^.num)
+      entoces
+			w^.num <- q^.num;
+			q <- q^.liga
+		sino
+			w^.num <- t^.num;
+			t <- t^.liga;
+      2.2fin de la condicional del paso 2.1
+		w^.liga <- NIL;
+		2.3 si (k = NIL)
+      entonces
+			k <- w;
+			r <- w;
+		sino
+			r^.liga <- w;
+			r <- w;
+      2.4 fin del condicional del paso 2.3
+3. si (q != NIL)
+		3.1. mientras (q != NIL) repetir
+			3.1.1. si (q != NIL)
+					crear(x);
+					x^.num <- q^.num;
+					x^.liga <- NIL;
+					r^.liga <- x;
+         3.1.2. fin del condicional del paso 3.1.1.
+			r <- x; 
+			q <- q^.liga; 
+      3.2 fin del ciclo del paso 3.1.      
+   si sino (t != NIL)
+   3.3. mientras (t != NIL) repetir
+      3.3.1. si (t != NIL)
+            entonces
+               crear(x);
+               x^.num <- t^.num;
+               x^.liga <- NIL;
+               r^.liga <- x;
+      3.3.2. fin de la condicional del paso 4.1.1.
+      3.3.3. r <- x;
+      3.3.4. t <- t^.liga;	
+4. fin de la condicional del paso 3.
