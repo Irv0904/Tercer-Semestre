@@ -119,7 +119,7 @@ nodo *eliminar_despues_x(nodo *i) {
 	i = creaNodo();
 	
 	printf("\n Introduzca el coeficiente (letra para terminar)");
-	i=scanf("%f",&coef);
+	scanf("%f",&coef);
 	fflush(stdin);
 	printf("\n Introduzca la potencia (letra para terminar)");
 	j=scanf("%d",&num);
@@ -127,7 +127,7 @@ nodo *eliminar_despues_x(nodo *i) {
 	
 	
 	
-	if ( i != 1 && j != 1 ) // 1
+	if ( i->num != 1 && j != 1 ) // 1
 	 {
 	 	free(i);
 	 	i = NULL;
@@ -138,7 +138,7 @@ nodo *eliminar_despues_x(nodo *i) {
 	    	
 	    	if(coef != 0.0)
 		      	{
-				i->coef = coef;
+				i->num = coef;
 				i->num = num;
 				i->liga = NULL;
 		     	}
@@ -154,13 +154,13 @@ nodo *eliminar_despues_x(nodo *i) {
 	      //	q= creanodo();
 	      	
 	printf("\n Introduzca el coeficiente (letra para terminar)");
-	i=scanf("%f",&coef);
+	scanf("%f",&coef);
 	fflush(stdin);
 	printf("\n Introduzca la potencia (letra para terminar)");
 	j=scanf("%d",&num);
 	fflush(stdin);
 	      
-	        if ( i != 1 && j != 1)
+	        if (j != 1)
 	          {   
 	 	      //  free(q);
 	 	        band = 0;
@@ -171,7 +171,7 @@ nodo *eliminar_despues_x(nodo *i) {
 				 
 		      if(coef != 0.0)
                  {
-			      	     i = sortedInsert219052022(i, num, coef);
+			      	    // i = sortedInsert219052022(i, num, coef);
 	             }
 	             else
 	                  {
@@ -183,5 +183,5 @@ nodo *eliminar_despues_x(nodo *i) {
 			}// fin del else 2
 	       }while (band == 1);
 		  }// fin del else 1
-	  return(i);	
+	  //return(i);	
 }

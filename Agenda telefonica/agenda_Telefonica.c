@@ -3,7 +3,7 @@
 	Copyright:Todos los derecho reservados 
 	Author: Irving Jhon Villarreal Lasso
 	Date: 23/05/23 14:24
-	Calificacion:
+	Calificacion: 91
 */
 #include<stdio.h>
 #include<stdlib.h>

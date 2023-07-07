@@ -105,14 +105,14 @@ int main()
 								case 3:
 									break;
 								default:
-									printf("\n\n\t\tLa selecci�n fue incorrecto, intente de nuevo\n\n");
+									printf("\n\n\t\tLa selecciun fue incorrecto, intente de nuevo\n\n");
 									system("PAUSE");
 									break;
 							}
 						}
 						else
 						{
-							printf("\n\n\t\tLa selecci�n fue incorrecto, intente de nuevo\n\n");
+							printf("\n\n\t\tLa selecciun fue incorrecto, intente de nuevo\n\n");
 							system("PAUSE");				
 						}
 					}while(lec!=3);
@@ -162,7 +162,7 @@ int main()
 									{
 									
 										iteractivo(p);
-										printf("\nIngrese el n�mero: ");
+										printf("\nIngrese el numero: ");
 										j=scanf("%d", &x);
 										fflush(stdin);
 										if(j==1)
@@ -249,14 +249,14 @@ int main()
 								case 5:
 									break;
 								default:
-									printf("\n\n\t\tLa selecci�n fue incorrecto, intente de nuevo\n\n");
+									printf("\n\n\t\tLa selecciun fue incorrecto, intente de nuevo\n\n");
 									system("PAUSE");
 									break;
 							}
 						}
 						else
 						{
-							printf("\n\n\t\tLa selecci�n fue incorrecto, intente de nuevo\n\n");
+							printf("\n\n\t\tLa selecciun fue incorrecto, intente de nuevo\n\n");
 							system("PAUSE");	
 						}
 					}while(lec!=5);	
@@ -383,14 +383,14 @@ int main()
 								case 6:
 									break;
 								default:
-									printf("\n\nLa selecci�n fue incorrecto,intente de nuevo\n\n");
+									printf("\n\nLa selecciun fue incorrecto,intente de nuevo\n\n");
 									system("PAUSE");
 									break;
 							}
 						}
 						else
 						{
-							printf("\n\nLa selecci�n fue incorrecto,intente de nuevo\n\n");
+							printf("\n\nLa selecciun fue incorrecto,intente de nuevo\n\n");
 							system("PAUSE");
 						}	
 					}while(lec!=6);
@@ -488,14 +488,14 @@ int main()
 								case 4:	
 									break;
 								default:
-									printf("\n\nLa selecci�n fue incorrecto,intente de nuevo\n\n");
+									printf("\n\nLa selecciun fue incorrecto,intente de nuevo\n\n");
 									system("PAUSE");
 									break;					
 							}
 						}
 						else
 						{
-							printf("\n\nLa selecci�n fue incorrecto,intente de nuevo\n\n");
+							printf("\n\nLa selecciun fue incorrecto,intente de nuevo\n\n");
 							system("PAUSE");
 						}
 					}while(lec!=4);
@@ -523,14 +523,14 @@ int main()
 								case 3:
 									break;
 								default:
-									printf("\n\nLa selecci�n fue incorrecto,intente de nuevo\n\n");
+									printf("\n\nLa selecciun fue incorrecto,intente de nuevo\n\n");
 									system("PAUSE");
 									break;
 							}
 						}
 						else
 						{
-							printf("\n\nLa selecci�n fue incorrecto,intente de nuevo\n\n");
+							printf("\n\nLa selecciun fue incorrecto,intente de nuevo\n\n");
 							system("PAUSE");
 						}
 					}
@@ -561,14 +561,14 @@ int main()
 					p=liberarMemoria(p);
 					break;
 				default:
-					printf("\n\nLa selecci�n fue incorrecto,intente de nuevo\n\n");
+					printf("\n\nLa selecciun fue incorrecto,intente de nuevo\n\n");
 					system("PAUSE");
 					break;			
 			}
 		}
 		else
 		{
-			printf("\n\nLa selecci�n fue incorrecto,intente de nuevo\n\n");
+			printf("\n\nLa selecciun fue incorrecto,intente de nuevo\n\n");
 			system("PAUSE");	
 		}
 	}while(opc!=9);
@@ -656,7 +656,7 @@ nodo *comienzo()
 	int num,j;
 	nodo *p, *q;
 	p = creaNodo();
-	printf("Ingrese un n�mero, para salir ingrese una letra: ");
+	printf("Ingrese un numero, para salir ingrese una letra: ");
 	j=scanf("%d",&num);
 	fflush(stdin);
 	if(j == 1)
@@ -667,7 +667,7 @@ nodo *comienzo()
 		do
 		{
 		q= creaNodo();
-		printf("Ingrese un n�mero, para salir ingrese una letra: ");
+		printf("Ingrese un numero, para salir ingrese una letra: ");
 		j=scanf("%d", &num);
 		fflush(stdin);
 		if (j == 1)
@@ -699,7 +699,7 @@ nodo *nodoFinal (nodo *p)
 	int j,num;
 	nodo *l,*q;
 	p=creaNodo();
-	printf("Ingrese un n�mero, para salir ingrese una letra: ");
+	printf("Ingrese un numero, para salir ingrese una letra: ");
 	j=scanf("%d",&num);
 	fflush(stdin);
 	if(j==1)
@@ -710,7 +710,7 @@ nodo *nodoFinal (nodo *p)
 		do
 		{
 			q=creaNodo();
-			printf("Ingrese un n�mero, para salir ingrese una letra: ");
+			printf("Ingrese un numero, para salir ingrese una letra: ");
 			j=scanf("%d",&num);
 			fflush(stdin);
 			if(j==1)
@@ -769,7 +769,7 @@ nodo *insertar_despues_x(nodo *p, int x, int ref)
 	nodo *q,*l;
 	int band=1;
 	q=p;
-	while((q->num!=ref)and(band==1))
+	while((q->num!=ref)&&(band==1))
 	{
 		if(q->liga!=NULL)
 		{
@@ -943,13 +943,13 @@ nodo *eliminar_antes_x(nodo *p, int ref)
 	int band=1;
 		if(p->num==ref)
 		{
-			printf("\nNo hay n�mero antes de la referencia\n");
+			printf("\nNo hay numero antes de la referencia\n");
 		}
 		else
 		{
 			q=p;
 			l=p;
-			while((q->num!=ref)and(band==1))
+			while((q->num!=ref)&&(band==1))
 			{
 				if(q->liga!=NULL
 				){
@@ -982,12 +982,12 @@ nodo *busqueda_recursiva(nodo *p,int num)
 	{
 	
 		if(p->num==num)
-			printf("\nEl n�mero %d Si esta en la lista\n\n",num);
+			printf("\nEl numero %d Si esta en la lista\n\n",num);
 		else 
 			busqueda_recursiva(p->liga,num);
 	}
 	else	
-		printf("\nEl n�mero %d NO esta en la lista\n\n", num); 
+		printf("\nEl numero %d NO esta en la lista\n\n", num); 
 			
 	return(p);
 }
@@ -1001,12 +1001,12 @@ nodo *busqueda_ordenada(nodo *p, int x)
 	{
 		q=q->liga;
 	}
-	if((q==NULL) or (q->num<x))
+	if((q==NULL) || (q->num<x))
 	{
-		printf("\nEl n�mero %d NO esta en la lista\n\n",x);
+		printf("\nEl numero %d NO esta en la lista\n\n",x);
 	}
 	else
-		printf("\nEl n�mero %d SI esta en la lista\n\n",x);
+		printf("\nEl numero %d SI esta en la lista\n\n",x);
 	return(p);
 }
 
@@ -1020,10 +1020,10 @@ nodo *busqueda_desordenada(nodo *p, int x)
 	}
 	if(q==NULL)
 	{
-		printf("\nEl n�mero %d NO esta en la lista\n\n", x);
+		printf("\nEl numero %d NO esta en la lista\n\n", x);
 	}
 	else
-		printf("\nEl n�mero %d SI esta en la lista\n\n", x);
+		printf("\nEl numero %d SI esta en la lista\n\n", x);
 	return(p);
 }
 
@@ -1042,13 +1042,13 @@ void guardarlista(nodo *p)
 		printf("\n No se puede abrir el archivo: %s",archivo);
 		exit(1);
 	}
-	 
+	
 	q= p;
 	while ( q != NULL)
 	{
 		printf("\n Guardando la lista... \n");
-	 	fwrite(q, sizeof(nodo),1,fp);
-	 	q = q->liga;
+		fwrite(q, sizeof(nodo),1,fp);
+		q = q->liga;
 	}
 	fclose(fp);
 }
@@ -1066,33 +1066,33 @@ nodo *cargarlista(nodo *p)
 	fflush(stdin);
 	if ( (fp = fopen(archivo,"rb")) == NULL )
 	{
-	 	printf("\n No existe el archivo: %s",archivo);
-	 	exit(1);
-	    e= 1;
+		printf("\n No existe el archivo: %s",archivo);
+		exit(1);
+		e= 1;
 	}
 	 
 	if ( e != 1)
 	{
-	 	
-	 	printf("\n La lista actual se elimina para cargar la del archivo");
-	 	printf("\nDesea continuar presione el numero uno 1: ");
-	 	scanf("%d",&op);
-	 	fflush(stdin);
-	 	
-	 	if ( op == 1 )
-	 	{
-	 		while( p != NULL )
-	 		{
-	 			q=p;
-	 			p=p->liga;
-	 			free(q);
+		
+		printf("\n La lista actual se elimina para cargar la del archivo");
+		printf("\nDesea continuar presione el numero uno 1: ");
+		scanf("%d",&op);
+		fflush(stdin);
+		
+		if ( op == 1 )
+		{
+			while( p != NULL )
+			{
+				q=p;
+				p=p->liga;
+				free(q);
 			}	 
 			printf("\n Cargando la lista . . . ");
 			p = creaNodo();
 			q = p;	 
 			while ( ! feof(fp))
 			{
-		 		if ( 1 != fread(q,sizeof(nodo),1,fp))	
+				if ( 1 != fread(q,sizeof(nodo),1,fp))	
 				break;
 				q->liga = creaNodo();
 				l = q;

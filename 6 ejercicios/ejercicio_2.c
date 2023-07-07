@@ -2,7 +2,7 @@
 	Nombre: Lista Simple con Inserta Despues con Lista Ordenada y Verificacion de Lista
 	Autor: Irving Jhon Villarreal
 	Hora de entrega: 13/06/2023
-	Nota:
+	Nota:100
 */
 #include<stdio.h>
 #include<stdlib.h>
@@ -245,7 +245,7 @@ nodo *insertar_despues_x(nodo *i)
 	j=scanf("%d", &dato);
 	if(j==1)
 	{
-		while((v->num!=x)and(band==1)){
+		while((v->num!=x)&&(band==1)){
 			if(v->liga!=NULL){
 				v=v->liga;
 			}

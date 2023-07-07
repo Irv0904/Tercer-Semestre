@@ -2,7 +2,7 @@
 	Nombre: Lista Simple con Inserta Despues con Lista Ordenada y Verificacion de Lista
 	Autor: Irving Jhon Villarreal
 	Fecha de entrega: 13/06/2023
-	Nota:
+	Nota:100
 */
 
 #include<stdio.h>
@@ -277,7 +277,7 @@ nodo *insertar(nodo *i, int dato) {
 		}
 	}
 	else{
-		if((v->num < dato) and (v->liga == NULL))
+		if((v->num < dato) && (v->liga == NULL))
 		{
 			k=creaNodo();
 			k->num=dato;

@@ -1,4 +1,9 @@
-//PASO LA PRUEBA
+/*	
+	Nombre: Lista Simple con Inserta Despues con Lista Ordenada y Verificacion de Lista
+	Autor: Irving Jhon Villarreal
+	Fecha de entrega: 13/06/2023
+	Nota:100
+*/
 
 #include<stdio.h>
 #include<stdlib.h>

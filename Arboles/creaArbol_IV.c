@@ -34,7 +34,8 @@ Arbol *busqueda_v1_ABB(Arbol *apNodo, int info);
 Arbol *insercion_ABB(Arbol *apNodo, int info);
 Arbol *insercion_v1_ABB(Arbol *apNodo, int info);
 
-void eliminacion_ABB(Arbol **apNodo, int info);
+Arbol *eliminacion_ABB(Arbol **apNodo, int info);
+
 
 int main()
 {
@@ -60,12 +61,13 @@ int main()
                 inOrden(apNodo);
                 printf("\n\nArbol en PosOrden\n\n");
                 posOrden(apNodo);
+                printf("\n");
                 system("PAUSE");
                 break;
             case 2:
                 system("CLS");
                 printf("Insercion en un arbol, elija una opcion");
-                printf("1->Insercion\n2->Insercion v1\n3->Salir");
+                printf("\n1->Insercion\n2->Insercion v1\n3->Salir\nRespuesta: ");
                 scanf("%d",&subdato);
                 fflush(stdin);
                 switch (subdato)
@@ -83,6 +85,7 @@ int main()
                             inOrden(apNodo);
                             printf("\n\nArbol en PosOrden\n\n");
                             posOrden(apNodo);
+                            printf("\n");
                             system("PAUSE");
                             break;
                         case 2:
@@ -96,6 +99,7 @@ int main()
                             inOrden(apNodo);
                             printf("\n\nArbol en PosOrden\n\n");
                             posOrden(apNodo); 
+                            printf("\n");
                             system("PAUSE");
                             break;
                         case 3:
@@ -119,12 +123,13 @@ int main()
                 inOrden(apNodo);
                 printf("\n\nArbol en PosOrden\n\n");
                 posOrden(apNodo);  
+                printf("\n");
                 system("PAUSE");
                 break;
             case 4:
                 system("CLS");
                 printf("Busqueda en arbol, elija una opcion");
-                printf("1->Busqueda\n2->Busqueda v1\n3->Salir");
+                printf("\n1->Busqueda\n2->Busqueda v1\n3->Salir\nRespuesta: ");
                 scanf("%d",&subdato);
                 fflush(stdin);
                 switch (subdato)
@@ -330,23 +335,20 @@ Arbol *insercion_ABB(Arbol *apNodo, int info)
     return apNodo;
 }
 
-Arbol *insercion_v1_ABB(Arbol *apNodo, int info)
+Arbol* insercion_v1_ABB(Arbol* apNodo, int info)
 {
-    if(apNodo != NULL)
-    { 
-        if(info < apNodo->info)
-            insercion_v1_ABB(apNodo->ligaizq, info);
+    if (apNodo != NULL)
+    {
+        if (info < apNodo->info)
+            apNodo->ligaizq = insercion_v1_ABB(apNodo->ligaizq, info);
+        else if (info > apNodo->info)
+            apNodo->ligader = insercion_v1_ABB(apNodo->ligader, info);
         else
-        {
-            if(info > apNodo->info)
-            insercion_v1_ABB(apNodo->ligader, info);
-            else
-            printf("La informacion dada ya se encuentra en el arbol");
-        }
+            printf("La informacion dada ya se encuentra en el arbol\n");
     }
     else
     {
-        Arbol *otroArbol = creaNodo();
+        Arbol* otroArbol = creaNodo();
         otroArbol->ligaizq = NULL;
         otroArbol->ligader = NULL;
         otroArbol->info = info;
@@ -354,49 +356,48 @@ Arbol *insercion_v1_ABB(Arbol *apNodo, int info)
     }
     return apNodo;
 }
-
-void eliminacion_ABB(Arbol **apNodo, int info)
+Arbol* eliminacion_ABB(Arbol **apNodo, int info)
 {
     if (*apNodo == NULL)
     {
-        printf("La informacion dada para eliminar no se encuentra en el arbol");
-        return;
+        printf("La información dada para eliminar no se encuentra en el árbol");
+        return NULL;
     }
 
     if (info < (*apNodo)->info)
-        eliminacion_ABB(&((*apNodo)->ligaizq), info);
-    else if (info > (*apNodo)->info)
-        eliminacion_ABB(&((*apNodo)->ligader), info);
+        (*apNodo)->ligaizq = eliminacion_ABB(&((*apNodo)->ligaizq), info);
     else
     {
-        Arbol *otroArbol = *apNodo;
-
-        if (otroArbol->ligader == NULL)
-        {
-            *apNodo = otroArbol->ligaizq;
-        }
-        else if (otroArbol->ligaizq == NULL)
-        {
-             *apNodo = otroArbol->ligader;
-        }
+        if (info > (*apNodo)->info)
+            (*apNodo)->ligader = eliminacion_ABB(&((*apNodo)->ligader), info);
         else
         {
-            Arbol *arbolAux = otroArbol->ligaizq;
-            Arbol *arbolAux_1 = NULL;
-            bool bo = false;
-
-            while (arbolAux->ligader != NULL)
-            {
-                arbolAux_1 = arbolAux;
-                arbolAux = arbolAux->ligader;
-                bo = true;
-            }
-
-            if (bo == true)
-                arbolAux_1->ligader = arbolAux->ligaizq;
+            Arbol *otroArbol = *apNodo;
+            if (otroArbol->ligader == NULL)
+                *apNodo = otroArbol->ligaizq;
             else
-                (*apNodo)->ligaizq = arbolAux->ligaizq;
+            {
+                if (otroArbol->ligaizq == NULL)
+                    *apNodo = otroArbol->ligader;
+                else
+                {
+                    Arbol *arbolAux = otroArbol->ligaizq;
+                    Arbol *arbolAux_1 = NULL;
+                    bool bo = false;
+                    while (arbolAux->ligader != NULL)
+                    {
+                        arbolAux_1 = arbolAux;
+                        arbolAux = arbolAux->ligader;
+                        bo = true;
+                    }
+                    if (bo)
+                        arbolAux_1->ligader = arbolAux->ligaizq;
+                    else
+                        (*apNodo)->ligaizq = arbolAux->ligaizq;
+                }
+            }
+            free(otroArbol);
         }
-        free(otroArbol);
     }
+    return *apNodo;
 }
